@@ -1,0 +1,501 @@
+id,sku,name,category,unit_cost,unit_price,weight_kg,primary_supplier_id
+1,PROD-00001,Packaging Aluminum 1,Packaging,22.85,49.38,10.754,20
+2,PROD-00002,Chemical Composite 2,Chemicals,19.9,51.59,1.058,145
+3,PROD-00003,Packaging Circuit 3,Packaging,26.71,38.84,23.4,117
+4,PROD-00004,Food Circuit 4,Food,18.82,29.87,22.898,80
+5,PROD-00005,Food Rubber 5,Food,12.38,18.27,24.22,44
+6,PROD-00006,Hardware Steel 6,Hardware,11.28,28.85,21.689,15
+7,PROD-00007,Raw Material Circuit 7,Raw Materials,19.47,30.22,19.905,45
+8,PROD-00008,Textile Composite 8,Textiles,16.75,42.98,12.099,107
+9,PROD-00009,Chemical Composite 9,Chemicals,13.2,24.68,2.289,110
+10,PROD-00010,Electronic Wire 10,Electronics,18.62,46.86,0.928,93
+11,PROD-00011,Hardware Steel 11,Hardware,22.08,55.72,24.431,6
+12,PROD-00012,Packaging Steel 12,Packaging,11.76,17.36,14.236,30
+13,PROD-00013,Hardware Fabric 13,Hardware,22.76,37.38,20.025,131
+14,PROD-00014,Automotive Steel 14,Automotive,4.31,7.83,5.687,14
+15,PROD-00015,Chemical Composite 15,Chemicals,27.59,64.14,13.535,64
+16,PROD-00016,Raw Material Steel 16,Raw Materials,35.17,77.64,5.755,65
+17,PROD-00017,Medical Circuit 17,Medical,24.11,39.19,2.727,89
+18,PROD-00018,Chemical Plastic 18,Chemicals,17.43,33.54,12.183,150
+19,PROD-00019,Textile Composite 19,Textiles,9.08,19.17,5.738,110
+20,PROD-00020,Automotive Composite 20,Automotive,18.06,35.45,11.915,136
+21,PROD-00021,Medical Aluminum 21,Medical,20.82,48.68,10.733,68
+22,PROD-00022,Automotive Composite 22,Automotive,55.48,100.82,16.813,101
+23,PROD-00023,Plastic Fabric 23,Plastics,7.82,18.57,12.669,7
+24,PROD-00024,Medical Copper 24,Medical,5.14,11.79,5.005,20
+25,PROD-00025,Hardware Glass 25,Hardware,13.22,33.67,3.903,43
+26,PROD-00026,Raw Material Circuit 26,Raw Materials,20.04,49.29,17.719,116
+27,PROD-00027,Food Steel 27,Food,26.11,41.17,6.872,38
+28,PROD-00028,Hardware Steel 28,Hardware,14.6,32.79,12.054,11
+29,PROD-00029,Packaging Circuit 29,Packaging,6.13,11.88,20.523,42
+30,PROD-00030,Packaging Copper 30,Packaging,33.74,66.16,6.061,59
+31,PROD-00031,Plastic Circuit 31,Plastics,47.93,74.63,10.999,106
+32,PROD-00032,Hardware Aluminum 32,Hardware,3.01,6.97,12.473,141
+33,PROD-00033,Automotive Glass 33,Automotive,12.98,25.35,2.075,107
+34,PROD-00034,Electronic Composite 34,Electronics,2.71,5.12,13.826,86
+35,PROD-00035,Automotive Wire 35,Automotive,48.2,113.35,21.204,118
+36,PROD-00036,Plastic Steel 36,Plastics,37.43,66.52,6.739,61
+37,PROD-00037,Food Glass 37,Food,12.54,25.94,7.443,33
+38,PROD-00038,Raw Material Circuit 38,Raw Materials,4.31,10.94,20.861,61
+39,PROD-00039,Electronic Glass 39,Electronics,8.64,20.51,6.655,139
+40,PROD-00040,Plastic Composite 40,Plastics,16.33,38.82,6.941,36
+41,PROD-00041,Hardware Fabric 41,Hardware,16.58,31.82,6.363,119
+42,PROD-00042,Medical Wire 42,Medical,18.68,44.87,0.157,33
+43,PROD-00043,Textile Rubber 43,Textiles,2.55,4.21,12.997,111
+44,PROD-00044,Food Steel 44,Food,8.81,20.23,4.761,55
+45,PROD-00045,Raw Material Steel 45,Raw Materials,10.66,25.95,16.074,112
+46,PROD-00046,Automotive Plastic 46,Automotive,19.13,36.04,6.185,140
+47,PROD-00047,Plastic Circuit 47,Plastics,14.27,28.0,5.054,26
+48,PROD-00048,Raw Material Plastic 48,Raw Materials,34.35,80.9,20.078,137
+49,PROD-00049,Automotive Plastic 49,Automotive,12.39,19.35,23.598,77
+50,PROD-00050,Chemical Circuit 50,Chemicals,18.47,29.45,19.583,97
+51,PROD-00051,Raw Material Plastic 51,Raw Materials,16.92,40.91,5.73,79
+52,PROD-00052,Electronic Rubber 52,Electronics,29.35,62.89,3.251,116
+53,PROD-00053,Raw Material Circuit 53,Raw Materials,29.46,56.84,21.923,28
+54,PROD-00054,Textile Glass 54,Textiles,4.68,10.76,2.99,43
+55,PROD-00055,Plastic Plastic 55,Plastics,15.39,32.31,9.908,127
+56,PROD-00056,Medical Plastic 56,Medical,10.26,23.43,13.101,103
+57,PROD-00057,Medical Steel 57,Medical,19.26,43.65,22.951,24
+58,PROD-00058,Plastic Aluminum 58,Plastics,6.39,12.58,2.391,149
+59,PROD-00059,Textile Composite 59,Textiles,14.85,34.83,9.6,93
+60,PROD-00060,Plastic Plastic 60,Plastics,16.28,37.84,15.179,50
+61,PROD-00061,Packaging Glass 61,Packaging,8.65,14.4,17.812,48
+62,PROD-00062,Textile Wire 62,Textiles,31.97,58.12,0.821,131
+63,PROD-00063,Food Copper 63,Food,26.04,59.88,6.477,79
+64,PROD-00064,Food Composite 64,Food,10.06,20.5,6.18,119
+65,PROD-00065,Medical Plastic 65,Medical,17.05,38.4,15.907,55
+66,PROD-00066,Medical Aluminum 66,Medical,17.43,33.8,5.078,97
+67,PROD-00067,Electronic Wire 67,Electronics,9.69,20.29,3.569,40
+68,PROD-00068,Plastic Wire 68,Plastics,16.18,29.1,5.334,26
+69,PROD-00069,Raw Material Aluminum 69,Raw Materials,4.98,12.89,1.898,5
+70,PROD-00070,Raw Material Aluminum 70,Raw Materials,7.29,16.98,22.06,96
+71,PROD-00071,Hardware Glass 71,Hardware,12.74,24.68,8.684,25
+72,PROD-00072,Chemical Composite 72,Chemicals,12.97,22.22,6.196,23
+73,PROD-00073,Medical Wire 73,Medical,5.36,13.01,1.99,134
+74,PROD-00074,Medical Glass 74,Medical,10.37,23.09,7.411,138
+75,PROD-00075,Plastic Rubber 75,Plastics,29.71,63.76,15.278,24
+76,PROD-00076,Automotive Rubber 76,Automotive,15.57,34.41,1.898,103
+77,PROD-00077,Medical Composite 77,Medical,13.4,22.34,11.052,127
+78,PROD-00078,Medical Rubber 78,Medical,10.69,21.03,15.512,75
+79,PROD-00079,Medical Fabric 79,Medical,5.2,11.04,18.451,19
+80,PROD-00080,Electronic Copper 80,Electronics,15.84,39.7,11.735,75
+81,PROD-00081,Plastic Fabric 81,Plastics,4.22,7.01,2.425,89
+82,PROD-00082,Electronic Circuit 82,Electronics,17.87,40.75,14.271,5
+83,PROD-00083,Plastic Steel 83,Plastics,9.82,21.13,8.19,60
+84,PROD-00084,Automotive Plastic 84,Automotive,11.03,18.5,12.53,137
+85,PROD-00085,Raw Material Circuit 85,Raw Materials,3.07,5.22,6.609,97
+86,PROD-00086,Textile Copper 86,Textiles,22.94,46.62,21.506,97
+87,PROD-00087,Chemical Fabric 87,Chemicals,31.85,76.42,7.615,142
+88,PROD-00088,Chemical Aluminum 88,Chemicals,12.63,21.76,13.705,48
+89,PROD-00089,Electronic Rubber 89,Electronics,15.76,29.79,18.742,123
+90,PROD-00090,Hardware Rubber 90,Hardware,9.64,15.68,11.185,129
+91,PROD-00091,Electronic Plastic 91,Electronics,15.17,21.62,7.943,17
+92,PROD-00092,Raw Material Aluminum 92,Raw Materials,17.37,25.67,14.564,8
+93,PROD-00093,Food Aluminum 93,Food,28.78,61.24,11.145,102
+94,PROD-00094,Chemical Steel 94,Chemicals,35.39,87.47,4.506,2
+95,PROD-00095,Textile Fabric 95,Textiles,11.36,18.67,16.517,22
+96,PROD-00096,Medical Rubber 96,Medical,5.91,11.78,11.957,45
+97,PROD-00097,Medical Copper 97,Medical,4.1,7.47,17.8,53
+98,PROD-00098,Electronic Glass 98,Electronics,2.99,6.38,20.272,119
+99,PROD-00099,Packaging Circuit 99,Packaging,28.46,60.45,6.177,27
+100,PROD-00100,Electronic Aluminum 100,Electronics,9.68,18.36,20.619,27
+101,PROD-00101,Textile Fabric 101,Textiles,29.24,41.56,23.128,78
+102,PROD-00102,Plastic Steel 102,Plastics,15.17,38.9,24.269,137
+103,PROD-00103,Raw Material Rubber 103,Raw Materials,21.38,45.68,15.388,73
+104,PROD-00104,Chemical Circuit 104,Chemicals,28.47,65.13,18.258,12
+105,PROD-00105,Raw Material Wire 105,Raw Materials,30.22,53.63,24.238,20
+106,PROD-00106,Medical Circuit 106,Medical,25.93,43.13,23.567,69
+107,PROD-00107,Textile Circuit 107,Textiles,5.19,9.62,21.3,120
+108,PROD-00108,Packaging Aluminum 108,Packaging,8.15,13.93,24.683,105
+109,PROD-00109,Textile Steel 109,Textiles,3.54,6.4,1.828,62
+110,PROD-00110,Chemical Aluminum 110,Chemicals,15.42,27.79,13.026,129
+111,PROD-00111,Hardware Wire 111,Hardware,26.58,57.97,2.942,53
+112,PROD-00112,Food Steel 112,Food,9.25,14.64,1.232,104
+113,PROD-00113,Textile Plastic 113,Textiles,13.94,26.45,13.071,41
+114,PROD-00114,Packaging Copper 114,Packaging,15.94,29.46,2.761,99
+115,PROD-00115,Chemical Aluminum 115,Chemicals,38.61,72.31,20.267,1
+116,PROD-00116,Hardware Glass 116,Hardware,12.4,17.68,8.654,78
+117,PROD-00117,Food Composite 117,Food,5.14,13.01,0.606,148
+118,PROD-00118,Automotive Rubber 118,Automotive,15.76,36.96,23.233,96
+119,PROD-00119,Plastic Fabric 119,Plastics,10.69,21.98,3.711,121
+120,PROD-00120,Hardware Steel 120,Hardware,30.11,58.5,8.131,128
+121,PROD-00121,Electronic Composite 121,Electronics,42.9,66.8,1.34,111
+122,PROD-00122,Plastic Rubber 122,Plastics,16.55,24.97,23.256,64
+123,PROD-00123,Medical Rubber 123,Medical,8.23,16.5,21.495,25
+124,PROD-00124,Chemical Copper 124,Chemicals,21.56,40.27,24.414,80
+125,PROD-00125,Packaging Steel 125,Packaging,22.87,42.77,5.045,108
+126,PROD-00126,Automotive Rubber 126,Automotive,28.0,48.05,8.754,53
+127,PROD-00127,Hardware Circuit 127,Hardware,8.4,20.35,14.32,40
+128,PROD-00128,Packaging Rubber 128,Packaging,15.92,23.03,3.142,75
+129,PROD-00129,Plastic Plastic 129,Plastics,18.99,47.94,15.183,23
+130,PROD-00130,Medical Wire 130,Medical,41.71,84.38,4.489,80
+131,PROD-00131,Chemical Glass 131,Chemicals,14.5,24.9,1.037,143
+132,PROD-00132,Raw Material Copper 132,Raw Materials,3.06,4.4,4.864,42
+133,PROD-00133,Plastic Copper 133,Plastics,15.4,27.62,2.289,92
+134,PROD-00134,Electronic Copper 134,Electronics,6.12,15.84,12.63,140
+135,PROD-00135,Medical Rubber 135,Medical,9.33,21.62,21.115,73
+136,PROD-00136,Food Circuit 136,Food,25.2,59.67,23.235,46
+137,PROD-00137,Chemical Aluminum 137,Chemicals,37.97,57.41,16.423,20
+138,PROD-00138,Electronic Rubber 138,Electronics,12.15,25.79,2.492,130
+139,PROD-00139,Medical Plastic 139,Medical,19.29,37.38,6.667,146
+140,PROD-00140,Hardware Wire 140,Hardware,12.33,21.26,10.678,135
+141,PROD-00141,Medical Copper 141,Medical,15.3,26.15,12.592,8
+142,PROD-00142,Raw Material Composite 142,Raw Materials,53.07,100.63,6.455,125
+143,PROD-00143,Automotive Fabric 143,Automotive,11.3,27.19,3.595,140
+144,PROD-00144,Textile Copper 144,Textiles,25.62,53.83,23.243,40
+145,PROD-00145,Plastic Steel 145,Plastics,19.33,28.43,14.967,27
+146,PROD-00146,Food Aluminum 146,Food,11.41,19.51,3.011,101
+147,PROD-00147,Hardware Fabric 147,Hardware,17.29,30.91,14.711,50
+148,PROD-00148,Medical Circuit 148,Medical,8.53,13.01,11.411,150
+149,PROD-00149,Hardware Wire 149,Hardware,22.5,33.87,2.895,88
+150,PROD-00150,Plastic Glass 150,Plastics,8.57,15.65,10.433,68
+151,PROD-00151,Hardware Steel 151,Hardware,18.6,41.78,1.726,89
+152,PROD-00152,Electronic Composite 152,Electronics,11.34,24.8,23.749,15
+153,PROD-00153,Food Circuit 153,Food,15.01,26.78,9.24,132
+154,PROD-00154,Textile Rubber 154,Textiles,23.83,43.91,9.679,39
+155,PROD-00155,Raw Material Steel 155,Raw Materials,13.06,24.37,8.667,105
+156,PROD-00156,Textile Plastic 156,Textiles,13.09,27.55,13.073,146
+157,PROD-00157,Raw Material Fabric 157,Raw Materials,19.88,38.07,17.473,81
+158,PROD-00158,Plastic Aluminum 158,Plastics,33.12,68.7,18.8,19
+159,PROD-00159,Electronic Rubber 159,Electronics,9.19,19.8,15.33,67
+160,PROD-00160,Medical Aluminum 160,Medical,8.2,11.84,5.446,84
+161,PROD-00161,Raw Material Wire 161,Raw Materials,17.91,29.12,8.509,107
+162,PROD-00162,Medical Circuit 162,Medical,7.39,18.22,5.035,117
+163,PROD-00163,Packaging Plastic 163,Packaging,31.99,68.22,7.725,93
+164,PROD-00164,Packaging Wire 164,Packaging,9.4,13.65,18.251,1
+165,PROD-00165,Plastic Fabric 165,Plastics,13.98,27.73,10.932,15
+166,PROD-00166,Hardware Glass 166,Hardware,18.56,39.31,24.875,136
+167,PROD-00167,Food Aluminum 167,Food,16.31,29.73,7.222,42
+168,PROD-00168,Raw Material Wire 168,Raw Materials,12.74,31.89,1.721,5
+169,PROD-00169,Electronic Composite 169,Electronics,26.59,68.69,5.264,19
+170,PROD-00170,Raw Material Steel 170,Raw Materials,9.95,20.86,20.678,56
+171,PROD-00171,Hardware Steel 171,Hardware,20.15,49.2,9.271,84
+172,PROD-00172,Textile Rubber 172,Textiles,4.27,6.33,7.237,111
+173,PROD-00173,Electronic Circuit 173,Electronics,26.89,64.61,2.269,45
+174,PROD-00174,Electronic Composite 174,Electronics,10.38,17.46,10.685,82
+175,PROD-00175,Packaging Circuit 175,Packaging,46.47,120.21,3.796,87
+176,PROD-00176,Food Steel 176,Food,17.93,44.17,17.146,101
+177,PROD-00177,Medical Plastic 177,Medical,19.47,39.44,11.583,64
+178,PROD-00178,Hardware Aluminum 178,Hardware,30.42,55.91,21.809,23
+179,PROD-00179,Packaging Glass 179,Packaging,16.66,40.27,5.977,66
+180,PROD-00180,Raw Material Steel 180,Raw Materials,14.49,33.54,1.17,149
+181,PROD-00181,Hardware Circuit 181,Hardware,25.59,59.04,9.012,85
+182,PROD-00182,Electronic Copper 182,Electronics,25.1,42.9,3.142,28
+183,PROD-00183,Hardware Rubber 183,Hardware,22.76,52.43,22.319,59
+184,PROD-00184,Food Wire 184,Food,2.6,4.57,23.302,49
+185,PROD-00185,Textile Glass 185,Textiles,6.95,14.21,12.204,52
+186,PROD-00186,Raw Material Wire 186,Raw Materials,30.06,44.51,3.14,141
+187,PROD-00187,Electronic Steel 187,Electronics,13.68,33.93,18.156,17
+188,PROD-00188,Electronic Aluminum 188,Electronics,8.84,20.41,17.973,126
+189,PROD-00189,Food Rubber 189,Food,10.17,25.92,14.709,30
+190,PROD-00190,Automotive Composite 190,Automotive,30.12,78.23,5.1,24
+191,PROD-00191,Automotive Rubber 191,Automotive,7.61,11.1,10.137,129
+192,PROD-00192,Textile Steel 192,Textiles,21.88,49.54,19.767,98
+193,PROD-00193,Medical Glass 193,Medical,21.71,33.03,6.865,128
+194,PROD-00194,Textile Copper 194,Textiles,2.28,3.44,5.582,91
+195,PROD-00195,Electronic Circuit 195,Electronics,29.9,63.08,8.498,111
+196,PROD-00196,Chemical Plastic 196,Chemicals,2.35,4.76,1.307,55
+197,PROD-00197,Medical Steel 197,Medical,30.31,76.77,12.654,148
+198,PROD-00198,Packaging Wire 198,Packaging,4.48,10.66,19.324,57
+199,PROD-00199,Food Wire 199,Food,7.04,10.29,23.086,141
+200,PROD-00200,Food Circuit 200,Food,21.65,35.81,12.49,125
+201,PROD-00201,Raw Material Aluminum 201,Raw Materials,10.64,25.48,6.966,129
+202,PROD-00202,Electronic Circuit 202,Electronics,21.24,43.31,11.592,98
+203,PROD-00203,Automotive Composite 203,Automotive,3.42,5.74,20.924,54
+204,PROD-00204,Raw Material Copper 204,Raw Materials,5.94,9.85,14.105,25
+205,PROD-00205,Food Copper 205,Food,15.0,23.72,22.84,8
+206,PROD-00206,Plastic Glass 206,Plastics,7.48,16.04,17.278,97
+207,PROD-00207,Textile Aluminum 207,Textiles,43.77,102.32,9.463,49
+208,PROD-00208,Electronic Rubber 208,Electronics,13.69,26.34,6.283,51
+209,PROD-00209,Raw Material Rubber 209,Raw Materials,14.81,23.81,8.026,142
+210,PROD-00210,Packaging Circuit 210,Packaging,29.57,64.24,7.166,143
+211,PROD-00211,Textile Glass 211,Textiles,21.4,41.87,0.823,124
+212,PROD-00212,Automotive Glass 212,Automotive,26.76,54.05,9.932,92
+213,PROD-00213,Chemical Aluminum 213,Chemicals,41.37,107.34,0.444,100
+214,PROD-00214,Textile Steel 214,Textiles,14.95,30.71,17.433,95
+215,PROD-00215,Food Wire 215,Food,12.74,19.01,4.906,53
+216,PROD-00216,Electronic Plastic 216,Electronics,11.35,18.15,10.089,68
+217,PROD-00217,Food Circuit 217,Food,16.39,25.39,7.42,112
+218,PROD-00218,Plastic Rubber 218,Plastics,4.12,10.43,10.31,143
+219,PROD-00219,Food Glass 219,Food,24.73,35.56,3.647,69
+220,PROD-00220,Automotive Copper 220,Automotive,3.74,6.81,20.491,134
+221,PROD-00221,Textile Composite 221,Textiles,19.27,38.41,4.977,56
+222,PROD-00222,Food Fabric 222,Food,36.9,90.51,5.747,145
+223,PROD-00223,Textile Fabric 223,Textiles,7.28,15.09,8.598,10
+224,PROD-00224,Packaging Wire 224,Packaging,54.78,109.33,15.772,135
+225,PROD-00225,Automotive Rubber 225,Automotive,8.06,13.31,20.582,56
+226,PROD-00226,Raw Material Plastic 226,Raw Materials,27.54,57.55,7.312,131
+227,PROD-00227,Food Wire 227,Food,35.34,77.66,21.166,11
+228,PROD-00228,Plastic Aluminum 228,Plastics,20.3,46.56,23.177,68
+229,PROD-00229,Packaging Copper 229,Packaging,3.23,5.4,21.025,104
+230,PROD-00230,Hardware Rubber 230,Hardware,17.06,33.95,22.384,123
+231,PROD-00231,Automotive Aluminum 231,Automotive,5.27,11.26,11.21,43
+232,PROD-00232,Hardware Steel 232,Hardware,3.38,6.76,20.455,72
+233,PROD-00233,Automotive Circuit 233,Automotive,8.94,21.67,3.88,14
+234,PROD-00234,Textile Circuit 234,Textiles,13.29,22.41,6.415,102
+235,PROD-00235,Chemical Rubber 235,Chemicals,7.02,17.21,24.674,75
+236,PROD-00236,Food Fabric 236,Food,23.27,33.48,21.775,59
+237,PROD-00237,Food Glass 237,Food,21.88,51.96,17.753,4
+238,PROD-00238,Chemical Rubber 238,Chemicals,13.28,21.31,24.301,98
+239,PROD-00239,Electronic Plastic 239,Electronics,3.27,5.47,12.604,79
+240,PROD-00240,Plastic Fabric 240,Plastics,17.8,35.86,8.914,123
+241,PROD-00241,Automotive Composite 241,Automotive,11.56,27.07,3.46,24
+242,PROD-00242,Hardware Steel 242,Hardware,12.22,21.49,8.386,84
+243,PROD-00243,Textile Plastic 243,Textiles,20.5,41.73,17.682,15
+244,PROD-00244,Textile Plastic 244,Textiles,3.62,5.83,9.046,117
+245,PROD-00245,Chemical Circuit 245,Chemicals,4.62,9.22,0.872,143
+246,PROD-00246,Packaging Rubber 246,Packaging,3.24,4.85,19.948,134
+247,PROD-00247,Plastic Wire 247,Plastics,27.32,55.46,16.337,115
+248,PROD-00248,Plastic Rubber 248,Plastics,25.79,38.35,11.159,143
+249,PROD-00249,Electronic Glass 249,Electronics,19.41,30.94,19.998,34
+250,PROD-00250,Food Glass 250,Food,23.54,42.98,12.876,99
+251,PROD-00251,Raw Material Plastic 251,Raw Materials,16.58,25.27,15.963,34
+252,PROD-00252,Hardware Circuit 252,Hardware,3.74,8.32,23.377,81
+253,PROD-00253,Chemical Copper 253,Chemicals,44.32,101.4,24.712,123
+254,PROD-00254,Food Rubber 254,Food,10.61,19.35,19.271,103
+255,PROD-00255,Hardware Fabric 255,Hardware,35.0,74.03,3.02,42
+256,PROD-00256,Packaging Fabric 256,Packaging,28.38,45.99,1.172,25
+257,PROD-00257,Packaging Wire 257,Packaging,6.65,9.54,13.989,79
+258,PROD-00258,Packaging Circuit 258,Packaging,29.37,73.66,16.995,43
+259,PROD-00259,Automotive Aluminum 259,Automotive,8.87,20.28,11.657,37
+260,PROD-00260,Packaging Wire 260,Packaging,8.87,14.78,11.597,68
+261,PROD-00261,Packaging Wire 261,Packaging,21.72,47.35,6.798,79
+262,PROD-00262,Hardware Rubber 262,Hardware,21.44,41.16,6.172,66
+263,PROD-00263,Medical Plastic 263,Medical,20.71,30.59,19.199,110
+264,PROD-00264,Hardware Composite 264,Hardware,14.26,33.91,18.963,48
+265,PROD-00265,Packaging Fabric 265,Packaging,10.18,23.39,11.475,148
+266,PROD-00266,Chemical Composite 266,Chemicals,12.35,18.83,3.14,62
+267,PROD-00267,Food Composite 267,Food,7.05,10.18,15.555,135
+268,PROD-00268,Chemical Wire 268,Chemicals,17.92,27.64,6.901,33
+269,PROD-00269,Raw Material Composite 269,Raw Materials,10.05,16.02,2.384,47
+270,PROD-00270,Textile Composite 270,Textiles,24.22,40.36,23.537,4
+271,PROD-00271,Hardware Steel 271,Hardware,14.93,38.48,15.461,98
+272,PROD-00272,Automotive Composite 272,Automotive,60.74,156.07,15.596,31
+273,PROD-00273,Textile Composite 273,Textiles,13.75,21.71,24.927,73
+274,PROD-00274,Hardware Composite 274,Hardware,13.17,19.35,14.217,140
+275,PROD-00275,Automotive Circuit 275,Automotive,9.79,21.62,11.433,49
+276,PROD-00276,Raw Material Plastic 276,Raw Materials,35.74,51.51,24.985,107
+277,PROD-00277,Textile Aluminum 277,Textiles,16.18,23.82,14.765,39
+278,PROD-00278,Automotive Rubber 278,Automotive,8.27,18.5,5.231,91
+279,PROD-00279,Plastic Rubber 279,Plastics,15.51,30.49,8.074,108
+280,PROD-00280,Electronic Wire 280,Electronics,3.28,8.48,20.381,34
+281,PROD-00281,Plastic Steel 281,Plastics,19.36,34.64,19.969,3
+282,PROD-00282,Plastic Steel 282,Plastics,14.81,34.54,22.839,23
+283,PROD-00283,Medical Rubber 283,Medical,8.05,11.38,6.236,103
+284,PROD-00284,Plastic Circuit 284,Plastics,9.09,13.83,6.466,91
+285,PROD-00285,Plastic Rubber 285,Plastics,25.05,52.32,4.624,39
+286,PROD-00286,Chemical Fabric 286,Chemicals,11.04,27.78,20.497,76
+287,PROD-00287,Raw Material Glass 287,Raw Materials,10.43,25.55,15.359,126
+288,PROD-00288,Packaging Circuit 288,Packaging,46.69,69.08,1.565,37
+289,PROD-00289,Plastic Rubber 289,Plastics,17.29,40.61,20.556,21
+290,PROD-00290,Hardware Wire 290,Hardware,24.93,49.05,5.292,100
+291,PROD-00291,Food Fabric 291,Food,31.08,65.67,6.159,42
+292,PROD-00292,Medical Rubber 292,Medical,35.56,74.96,2.034,17
+293,PROD-00293,Medical Circuit 293,Medical,12.03,27.84,17.47,80
+294,PROD-00294,Packaging Rubber 294,Packaging,23.83,35.98,5.905,49
+295,PROD-00295,Hardware Copper 295,Hardware,2.07,4.32,7.888,62
+296,PROD-00296,Raw Material Glass 296,Raw Materials,16.83,35.73,19.758,56
+297,PROD-00297,Hardware Aluminum 297,Hardware,15.13,39.07,17.667,108
+298,PROD-00298,Automotive Wire 298,Automotive,14.5,31.36,23.111,56
+299,PROD-00299,Automotive Circuit 299,Automotive,18.39,47.27,11.551,47
+300,PROD-00300,Automotive Composite 300,Automotive,9.47,23.33,16.229,15
+301,PROD-00301,Electronic Circuit 301,Electronics,5.31,11.37,3.834,128
+302,PROD-00302,Packaging Steel 302,Packaging,17.26,33.32,22.076,37
+303,PROD-00303,Hardware Copper 303,Hardware,10.42,16.86,18.304,11
+304,PROD-00304,Chemical Rubber 304,Chemicals,11.67,27.76,21.734,110
+305,PROD-00305,Electronic Fabric 305,Electronics,10.6,22.58,6.719,36
+306,PROD-00306,Packaging Wire 306,Packaging,57.07,133.38,7.941,117
+307,PROD-00307,Plastic Plastic 307,Plastics,9.32,23.33,21.877,26
+308,PROD-00308,Plastic Copper 308,Plastics,37.12,55.69,6.479,59
+309,PROD-00309,Raw Material Steel 309,Raw Materials,23.97,61.15,19.033,44
+310,PROD-00310,Automotive Composite 310,Automotive,21.65,47.1,23.446,28
+311,PROD-00311,Packaging Copper 311,Packaging,13.87,30.34,11.31,72
+312,PROD-00312,Automotive Fabric 312,Automotive,7.59,13.09,4.096,41
+313,PROD-00313,Plastic Copper 313,Plastics,26.28,42.8,4.866,42
+314,PROD-00314,Textile Steel 314,Textiles,14.07,35.64,22.533,64
+315,PROD-00315,Textile Aluminum 315,Textiles,11.83,27.37,21.084,85
+316,PROD-00316,Electronic Rubber 316,Electronics,12.06,21.27,24.901,26
+317,PROD-00317,Electronic Aluminum 317,Electronics,25.82,58.92,17.807,23
+318,PROD-00318,Food Copper 318,Food,7.8,16.52,3.138,53
+319,PROD-00319,Hardware Steel 319,Hardware,6.35,9.32,22.905,71
+320,PROD-00320,Hardware Aluminum 320,Hardware,6.07,9.54,15.04,108
+321,PROD-00321,Electronic Glass 321,Electronics,27.05,40.36,15.123,45
+322,PROD-00322,Plastic Composite 322,Plastics,9.14,23.59,1.053,103
+323,PROD-00323,Raw Material Wire 323,Raw Materials,28.93,58.11,23.429,116
+324,PROD-00324,Packaging Fabric 324,Packaging,5.44,7.99,18.189,13
+325,PROD-00325,Raw Material Wire 325,Raw Materials,18.03,29.46,0.72,37
+326,PROD-00326,Textile Plastic 326,Textiles,5.65,10.54,2.398,84
+327,PROD-00327,Textile Steel 327,Textiles,21.45,53.78,22.921,113
+328,PROD-00328,Automotive Plastic 328,Automotive,23.0,32.3,2.782,10
+329,PROD-00329,Plastic Aluminum 329,Plastics,32.64,76.66,14.776,102
+330,PROD-00330,Raw Material Aluminum 330,Raw Materials,77.05,133.81,6.892,49
+331,PROD-00331,Textile Wire 331,Textiles,13.69,21.45,20.205,148
+332,PROD-00332,Automotive Steel 332,Automotive,19.64,38.89,2.847,66
+333,PROD-00333,Raw Material Rubber 333,Raw Materials,4.74,7.39,23.855,37
+334,PROD-00334,Packaging Fabric 334,Packaging,23.11,57.26,22.983,85
+335,PROD-00335,Medical Plastic 335,Medical,5.94,10.78,20.058,93
+336,PROD-00336,Food Composite 336,Food,24.57,50.7,12.25,41
+337,PROD-00337,Automotive Aluminum 337,Automotive,7.02,12.43,14.155,30
+338,PROD-00338,Electronic Aluminum 338,Electronics,5.11,7.59,8.5,72
+339,PROD-00339,Electronic Plastic 339,Electronics,8.02,20.39,3.547,142
+340,PROD-00340,Plastic Rubber 340,Plastics,5.4,12.16,20.504,106
+341,PROD-00341,Raw Material Composite 341,Raw Materials,11.91,18.18,16.633,72
+342,PROD-00342,Electronic Wire 342,Electronics,18.42,30.0,15.73,97
+343,PROD-00343,Raw Material Composite 343,Raw Materials,6.8,12.4,18.025,111
+344,PROD-00344,Textile Copper 344,Textiles,53.78,137.65,12.45,116
+345,PROD-00345,Food Composite 345,Food,17.65,31.47,6.436,132
+346,PROD-00346,Plastic Plastic 346,Plastics,5.42,7.99,15.01,4
+347,PROD-00347,Hardware Aluminum 347,Hardware,25.98,53.4,15.435,65
+348,PROD-00348,Packaging Aluminum 348,Packaging,26.6,40.49,7.815,14
+349,PROD-00349,Hardware Aluminum 349,Hardware,20.5,48.41,15.127,31
+350,PROD-00350,Food Rubber 350,Food,16.85,33.83,23.606,34
+351,PROD-00351,Chemical Plastic 351,Chemicals,18.69,34.39,8.816,50
+352,PROD-00352,Textile Steel 352,Textiles,15.97,32.34,20.553,51
+353,PROD-00353,Hardware Steel 353,Hardware,11.85,24.97,19.358,49
+354,PROD-00354,Hardware Aluminum 354,Hardware,11.3,16.35,12.413,49
+355,PROD-00355,Packaging Copper 355,Packaging,11.12,24.61,16.691,131
+356,PROD-00356,Hardware Steel 356,Hardware,8.55,18.09,8.291,47
+357,PROD-00357,Textile Glass 357,Textiles,12.71,24.52,22.323,79
+358,PROD-00358,Electronic Circuit 358,Electronics,22.32,44.83,0.303,64
+359,PROD-00359,Automotive Fabric 359,Automotive,27.67,69.37,13.943,78
+360,PROD-00360,Packaging Rubber 360,Packaging,6.89,17.46,6.749,66
+361,PROD-00361,Food Steel 361,Food,29.51,42.32,18.524,131
+362,PROD-00362,Plastic Composite 362,Plastics,24.53,54.71,1.767,99
+363,PROD-00363,Textile Wire 363,Textiles,17.99,44.14,20.322,62
+364,PROD-00364,Textile Circuit 364,Textiles,15.03,22.86,3.393,100
+365,PROD-00365,Textile Rubber 365,Textiles,12.44,20.88,15.52,11
+366,PROD-00366,Medical Composite 366,Medical,24.38,59.31,16.492,51
+367,PROD-00367,Raw Material Composite 367,Raw Materials,16.75,25.19,21.968,105
+368,PROD-00368,Plastic Fabric 368,Plastics,25.31,52.37,6.235,148
+369,PROD-00369,Medical Aluminum 369,Medical,10.12,18.08,0.227,91
+370,PROD-00370,Textile Wire 370,Textiles,17.19,24.9,21.98,54
+371,PROD-00371,Raw Material Copper 371,Raw Materials,18.22,32.68,20.55,6
+372,PROD-00372,Automotive Steel 372,Automotive,9.67,13.95,19.568,149
+373,PROD-00373,Packaging Fabric 373,Packaging,12.16,28.58,11.306,71
+374,PROD-00374,Medical Aluminum 374,Medical,14.09,32.43,15.512,121
+375,PROD-00375,Hardware Copper 375,Hardware,6.53,12.58,11.206,121
+376,PROD-00376,Textile Wire 376,Textiles,22.05,42.31,22.731,126
+377,PROD-00377,Raw Material Fabric 377,Raw Materials,25.3,56.83,20.966,137
+378,PROD-00378,Textile Copper 378,Textiles,23.59,52.17,5.256,113
+379,PROD-00379,Automotive Composite 379,Automotive,4.39,10.66,15.27,55
+380,PROD-00380,Raw Material Copper 380,Raw Materials,11.47,26.5,21.362,59
+381,PROD-00381,Plastic Composite 381,Plastics,31.97,69.5,17.968,5
+382,PROD-00382,Textile Glass 382,Textiles,19.17,48.9,24.699,107
+383,PROD-00383,Packaging Fabric 383,Packaging,11.61,24.74,4.346,11
+384,PROD-00384,Textile Wire 384,Textiles,15.89,38.8,9.554,17
+385,PROD-00385,Medical Rubber 385,Medical,11.34,17.97,20.949,146
+386,PROD-00386,Chemical Aluminum 386,Chemicals,10.01,19.7,17.643,25
+387,PROD-00387,Packaging Circuit 387,Packaging,36.35,57.63,7.624,51
+388,PROD-00388,Food Steel 388,Food,24.5,40.92,11.8,49
+389,PROD-00389,Chemical Composite 389,Chemicals,49.53,119.98,21.599,98
+390,PROD-00390,Textile Aluminum 390,Textiles,4.39,7.69,12.482,122
+391,PROD-00391,Textile Fabric 391,Textiles,2.7,6.08,12.623,12
+392,PROD-00392,Plastic Circuit 392,Plastics,26.29,62.43,12.099,131
+393,PROD-00393,Textile Wire 393,Textiles,17.77,27.87,7.711,135
+394,PROD-00394,Chemical Composite 394,Chemicals,12.13,28.92,18.645,39
+395,PROD-00395,Raw Material Aluminum 395,Raw Materials,12.58,23.68,18.076,60
+396,PROD-00396,Plastic Circuit 396,Plastics,5.93,11.75,7.35,119
+397,PROD-00397,Chemical Wire 397,Chemicals,6.74,10.14,1.158,72
+398,PROD-00398,Plastic Plastic 398,Plastics,18.87,32.91,12.555,20
+399,PROD-00399,Plastic Plastic 399,Plastics,8.64,13.58,6.2,93
+400,PROD-00400,Raw Material Rubber 400,Raw Materials,38.47,68.98,22.262,94
+401,PROD-00401,Plastic Glass 401,Plastics,13.0,20.69,8.049,43
+402,PROD-00402,Plastic Steel 402,Plastics,27.05,52.51,16.728,127
+403,PROD-00403,Hardware Rubber 403,Hardware,13.3,28.88,4.785,31
+404,PROD-00404,Raw Material Composite 404,Raw Materials,28.87,54.82,1.592,89
+405,PROD-00405,Textile Wire 405,Textiles,3.84,7.84,6.95,108
+406,PROD-00406,Electronic Glass 406,Electronics,21.78,31.85,8.784,116
+407,PROD-00407,Packaging Copper 407,Packaging,34.79,61.12,5.294,138
+408,PROD-00408,Hardware Rubber 408,Hardware,25.69,38.52,10.455,24
+409,PROD-00409,Automotive Wire 409,Automotive,9.49,23.63,22.256,37
+410,PROD-00410,Automotive Copper 410,Automotive,5.24,8.66,9.531,20
+411,PROD-00411,Raw Material Rubber 411,Raw Materials,48.76,85.6,8.679,140
+412,PROD-00412,Medical Plastic 412,Medical,14.33,29.89,1.381,42
+413,PROD-00413,Electronic Circuit 413,Electronics,10.89,21.61,4.653,117
+414,PROD-00414,Electronic Plastic 414,Electronics,36.27,52.47,2.352,92
+415,PROD-00415,Medical Rubber 415,Medical,14.44,25.4,1.232,73
+416,PROD-00416,Electronic Rubber 416,Electronics,3.39,7.53,3.87,10
+417,PROD-00417,Automotive Copper 417,Automotive,18.52,42.24,21.697,28
+418,PROD-00418,Medical Wire 418,Medical,48.52,117.55,18.27,127
+419,PROD-00419,Chemical Wire 419,Chemicals,31.3,67.79,12.898,103
+420,PROD-00420,Food Wire 420,Food,12.29,28.99,6.261,145
+421,PROD-00421,Textile Circuit 421,Textiles,13.92,34.64,14.359,100
+422,PROD-00422,Textile Composite 422,Textiles,11.17,19.06,19.905,110
+423,PROD-00423,Medical Composite 423,Medical,23.72,57.59,12.793,3
+424,PROD-00424,Electronic Circuit 424,Electronics,7.49,18.36,5.047,46
+425,PROD-00425,Food Aluminum 425,Food,13.16,30.29,11.642,55
+426,PROD-00426,Hardware Plastic 426,Hardware,16.3,40.97,24.705,25
+427,PROD-00427,Chemical Copper 427,Chemicals,47.37,69.64,19.761,127
+428,PROD-00428,Textile Glass 428,Textiles,9.3,20.06,24.033,142
+429,PROD-00429,Chemical Glass 429,Chemicals,5.82,11.58,17.626,94
+430,PROD-00430,Electronic Composite 430,Electronics,13.97,20.98,23.328,127
+431,PROD-00431,Chemical Plastic 431,Chemicals,13.19,33.66,3.241,140
+432,PROD-00432,Hardware Aluminum 432,Hardware,8.55,15.3,3.88,4
+433,PROD-00433,Raw Material Rubber 433,Raw Materials,13.42,31.32,10.411,3
+434,PROD-00434,Packaging Rubber 434,Packaging,15.68,27.83,0.553,27
+435,PROD-00435,Electronic Steel 435,Electronics,17.95,45.28,19.964,142
+436,PROD-00436,Textile Circuit 436,Textiles,13.82,20.37,9.787,65
+437,PROD-00437,Plastic Composite 437,Plastics,8.59,20.69,19.224,63
+438,PROD-00438,Automotive Copper 438,Automotive,10.74,24.35,6.805,82
+439,PROD-00439,Raw Material Copper 439,Raw Materials,8.44,16.64,15.542,120
+440,PROD-00440,Chemical Circuit 440,Chemicals,3.96,7.63,1.047,104
+441,PROD-00441,Medical Circuit 441,Medical,13.08,28.4,16.333,12
+442,PROD-00442,Automotive Rubber 442,Automotive,13.39,30.08,7.118,36
+443,PROD-00443,Textile Composite 443,Textiles,18.21,34.04,15.116,40
+444,PROD-00444,Packaging Composite 444,Packaging,19.99,44.93,11.776,13
+445,PROD-00445,Food Aluminum 445,Food,21.31,54.11,8.137,42
+446,PROD-00446,Textile Steel 446,Textiles,14.11,27.66,5.132,55
+447,PROD-00447,Raw Material Steel 447,Raw Materials,11.71,29.78,0.548,124
+448,PROD-00448,Chemical Wire 448,Chemicals,38.08,85.89,24.362,69
+449,PROD-00449,Packaging Aluminum 449,Packaging,3.99,10.03,6.407,77
+450,PROD-00450,Raw Material Wire 450,Raw Materials,8.5,17.24,15.521,140
+451,PROD-00451,Medical Copper 451,Medical,16.54,26.97,3.627,112
+452,PROD-00452,Food Rubber 452,Food,10.1,18.68,20.332,101
+453,PROD-00453,Chemical Wire 453,Chemicals,16.82,33.87,11.89,124
+454,PROD-00454,Food Composite 454,Food,14.19,25.06,13.644,78
+455,PROD-00455,Hardware Glass 455,Hardware,17.41,42.48,8.683,41
+456,PROD-00456,Plastic Circuit 456,Plastics,8.33,17.03,3.514,126
+457,PROD-00457,Electronic Fabric 457,Electronics,13.16,26.48,0.949,93
+458,PROD-00458,Chemical Composite 458,Chemicals,15.74,34.3,2.376,75
+459,PROD-00459,Hardware Aluminum 459,Hardware,21.92,46.69,4.486,33
+460,PROD-00460,Food Wire 460,Food,3.34,8.19,10.664,44
+461,PROD-00461,Hardware Fabric 461,Hardware,23.65,35.07,14.854,31
+462,PROD-00462,Plastic Copper 462,Plastics,19.63,36.81,3.287,47
+463,PROD-00463,Raw Material Glass 463,Raw Materials,10.38,15.66,12.474,101
+464,PROD-00464,Raw Material Rubber 464,Raw Materials,6.27,15.95,13.071,22
+465,PROD-00465,Medical Steel 465,Medical,18.46,27.06,3.528,104
+466,PROD-00466,Chemical Aluminum 466,Chemicals,11.0,21.22,5.894,88
+467,PROD-00467,Electronic Copper 467,Electronics,6.63,13.0,24.762,71
+468,PROD-00468,Plastic Wire 468,Plastics,9.28,13.89,5.981,48
+469,PROD-00469,Packaging Aluminum 469,Packaging,4.13,7.47,4.55,98
+470,PROD-00470,Medical Copper 470,Medical,4.58,7.74,4.644,81
+471,PROD-00471,Electronic Composite 471,Electronics,12.47,26.62,6.631,150
+472,PROD-00472,Raw Material Plastic 472,Raw Materials,18.46,38.36,6.303,82
+473,PROD-00473,Food Composite 473,Food,24.77,41.27,4.875,63
+474,PROD-00474,Hardware Composite 474,Hardware,24.25,61.5,16.59,99
+475,PROD-00475,Automotive Composite 475,Automotive,20.3,37.07,16.027,32
+476,PROD-00476,Textile Rubber 476,Textiles,7.92,19.14,20.548,56
+477,PROD-00477,Food Composite 477,Food,14.27,35.81,12.04,79
+478,PROD-00478,Packaging Aluminum 478,Packaging,11.05,20.33,23.743,108
+479,PROD-00479,Raw Material Glass 479,Raw Materials,9.34,22.36,21.249,28
+480,PROD-00480,Packaging Composite 480,Packaging,10.66,25.16,17.606,146
+481,PROD-00481,Medical Steel 481,Medical,6.75,15.84,7.069,112
+482,PROD-00482,Automotive Composite 482,Automotive,9.05,16.94,10.52,98
+483,PROD-00483,Plastic Steel 483,Plastics,18.51,40.33,14.371,10
+484,PROD-00484,Raw Material Plastic 484,Raw Materials,9.39,16.24,7.776,111
+485,PROD-00485,Chemical Rubber 485,Chemicals,6.75,14.45,1.877,102
+486,PROD-00486,Raw Material Composite 486,Raw Materials,28.25,67.89,5.521,28
+487,PROD-00487,Packaging Copper 487,Packaging,17.86,39.72,22.635,66
+488,PROD-00488,Packaging Copper 488,Packaging,20.3,35.87,2.432,137
+489,PROD-00489,Plastic Circuit 489,Plastics,41.72,84.37,8.074,94
+490,PROD-00490,Food Copper 490,Food,11.79,27.37,14.758,41
+491,PROD-00491,Hardware Wire 491,Hardware,7.61,19.34,19.965,91
+492,PROD-00492,Food Aluminum 492,Food,16.97,26.86,12.008,78
+493,PROD-00493,Textile Circuit 493,Textiles,16.57,35.66,10.714,22
+494,PROD-00494,Textile Aluminum 494,Textiles,15.81,31.68,17.746,130
+495,PROD-00495,Raw Material Circuit 495,Raw Materials,13.2,19.01,9.606,77
+496,PROD-00496,Chemical Circuit 496,Chemicals,13.83,30.82,10.421,65
+497,PROD-00497,Plastic Plastic 497,Plastics,11.22,22.09,14.543,8
+498,PROD-00498,Electronic Plastic 498,Electronics,17.53,34.03,13.118,32
+499,PROD-00499,Automotive Plastic 499,Automotive,8.0,17.33,6.26,108
+500,PROD-00500,Electronic Wire 500,Electronics,13.27,25.9,17.686,145

@@ -1,0 +1,61 @@
+id,route_code,origin,destination,mode,cost_per_unit,transit_days,carrier
+1,RTE-001,New York,Los Angeles,road,1.453,5.4,Maersk
+2,RTE-002,Tokyo,Hamburg,road,1.776,6.3,Maersk
+3,RTE-003,Rotterdam,Los Angeles,air,2.55,5.1,Maersk
+4,RTE-004,New York,Mexico City,road,1.08,6.1,Maersk
+5,RTE-005,New York,Shanghai,air,2.893,4.6,DHL
+6,RTE-006,Mexico City,New York,air,3.115,4.8,Kuehne+Nagel
+7,RTE-007,Singapore,New York,air,2.541,5.1,UPS
+8,RTE-008,Tokyo,Mexico City,road,1.221,5.8,Kuehne+Nagel
+9,RTE-009,Hamburg,Los Angeles,rail,1.028,14.5,Yang Ming
+10,RTE-010,Mexico City,Mumbai,road,1.154,7.5,DB Schenker
+11,RTE-011,Shanghai,Tokyo,sea,0.439,28.4,DHL
+12,RTE-012,Singapore,Mumbai,road,1.703,7.2,UPS
+13,RTE-013,Shenzhen,Los Angeles,rail,1.183,14.5,DHL
+14,RTE-014,Rotterdam,Shanghai,rail,0.934,11.8,Kuehne+Nagel
+15,RTE-015,Los Angeles,New York,rail,1.171,10.1,DB Schenker
+16,RTE-016,Mumbai,Singapore,road,1.761,7.4,Kuehne+Nagel
+17,RTE-017,Mumbai,Singapore,road,1.764,6.4,DHL
+18,RTE-018,Shenzhen,Los Angeles,rail,1.098,12.0,Yang Ming
+19,RTE-019,Hamburg,Los Angeles,air,2.042,5.1,Kuehne+Nagel
+20,RTE-020,Los Angeles,Shenzhen,rail,1.183,14.8,DHL
+21,RTE-021,Singapore,Shanghai,rail,0.962,10.7,FedEx
+22,RTE-022,New York,Shanghai,road,1.339,6.2,UPS
+23,RTE-023,Shanghai,Hamburg,air,2.33,3.3,Yang Ming
+24,RTE-024,Singapore,Shenzhen,air,2.461,3.5,Maersk
+25,RTE-025,New York,Los Angeles,rail,1.146,13.3,Yang Ming
+26,RTE-026,Singapore,Rotterdam,sea,0.512,22.4,Kuehne+Nagel
+27,RTE-027,Mumbai,Rotterdam,road,1.107,7.3,DHL
+28,RTE-028,Shanghai,Mexico City,air,2.723,3.9,Kuehne+Nagel
+29,RTE-029,Los Angeles,Singapore,rail,0.85,11.1,FedEx
+30,RTE-030,New York,Singapore,road,1.334,7.8,FedEx
+31,RTE-031,Shanghai,Shenzhen,rail,1.038,9.7,UPS
+32,RTE-032,New York,Hamburg,air,2.766,4.0,Yang Ming
+33,RTE-033,Los Angeles,Singapore,air,3.205,4.8,Maersk
+34,RTE-034,Singapore,Tokyo,road,1.144,7.7,DB Schenker
+35,RTE-035,Hamburg,Tokyo,sea,0.325,30.9,Yang Ming
+36,RTE-036,Mexico City,Tokyo,rail,0.761,11.1,UPS
+37,RTE-037,Rotterdam,Mexico City,road,1.615,5.7,Kuehne+Nagel
+38,RTE-038,Shanghai,Los Angeles,rail,1.072,13.8,Maersk
+39,RTE-039,Tokyo,Shanghai,rail,1.122,13.9,FedEx
+40,RTE-040,Mexico City,Rotterdam,road,1.132,6.8,DHL
+41,RTE-041,New York,Hamburg,sea,0.363,29.6,FedEx
+42,RTE-042,Mumbai,New York,road,1.538,5.4,UPS
+43,RTE-043,Singapore,Hamburg,road,1.744,5.5,DB Schenker
+44,RTE-044,Mumbai,Shanghai,air,2.287,4.4,DHL
+45,RTE-045,Shenzhen,Shanghai,sea,0.334,28.1,FedEx
+46,RTE-046,New York,Rotterdam,air,3.097,3.6,Yang Ming
+47,RTE-047,Mexico City,Los Angeles,air,2.085,4.1,FedEx
+48,RTE-048,Hamburg,Mexico City,sea,0.471,23.2,FedEx
+49,RTE-049,Hamburg,Tokyo,rail,0.734,9.6,Yang Ming
+50,RTE-050,Shanghai,Tokyo,rail,1.213,12.8,DB Schenker
+51,RTE-051,Shenzhen,Rotterdam,road,1.076,7.5,FedEx
+52,RTE-052,Mexico City,Rotterdam,rail,1.149,10.9,UPS
+53,RTE-053,New York,Singapore,road,1.703,4.8,Yang Ming
+54,RTE-054,Rotterdam,Hamburg,air,3.448,4.4,DB Schenker
+55,RTE-055,Singapore,Shenzhen,sea,0.473,25.3,UPS
+56,RTE-056,Singapore,Tokyo,road,1.335,4.9,FedEx
+57,RTE-057,Mumbai,Rotterdam,sea,0.406,24.6,UPS
+58,RTE-058,Rotterdam,Shanghai,air,2.919,4.2,Yang Ming
+59,RTE-059,Shenzhen,Rotterdam,air,2.751,3.3,FedEx
+60,RTE-060,New York,Shanghai,sea,0.32,33.4,FedEx

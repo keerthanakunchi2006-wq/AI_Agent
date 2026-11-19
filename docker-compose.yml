@@ -1,0 +1,52 @@
+version: "3.9"
+
+services:
+  db:
+    image: postgres:16-alpine
+    environment:
+      POSTGRES_USER: scdemo
+      POSTGRES_PASSWORD: scdemo
+      POSTGRES_DB: supplychain
+    ports:
+      - "5432:5432"
+    volumes:
+      - pgdata:/var/lib/postgresql/data
+    healthcheck:
+      test: ["CMD-SHELL", "pg_isready -U scdemo -d supplychain"]
+      interval: 5s
+      timeout: 5s
+      retries: 10
+
+  redis:
+    image: redis:7-alpine
+    ports:
+      - "6379:6379"
+    healthcheck:
+      test: ["CMD", "redis-cli", "ping"]
+      interval: 5s
+      timeout: 3s
+      retries: 10
+
+  backend:
+    build: ./backend
+    depends_on:
+      db:
+        condition: service_healthy
+      redis:
+        condition: service_healthy
+    environment:
+      APP_ENV: production
+      APP_DEBUG: "false"
+      DATABASE_URL: postgresql+psycopg2://scdemo:scdemo@db:5432/supplychain
+      CHECKPOINT_DB_URL: postgresql://scdemo:scdemo@db:5432/supplychain
+      REDIS_URL: redis://redis:6379/0
+      SEED_DEMO_DATA: "true"
+      JWT_SECRET: change-me-in-production-please-use-a-long-random-string
+      CORS_ORIGINS: http://localhost:8000,http://127.0.0.1:8000
+    ports:
+      - "8000:8000"
+    volumes:
+      - ./frontend:/app/frontend
+
+volumes:
+  pgdata:
