@@ -1,6 +1,7 @@
 """Tests for the LangGraph orchestrator end-to-end."""
 from __future__ import annotations
 
+import uuid
 from datetime import datetime, timedelta
 
 import pytest
@@ -53,7 +54,8 @@ def test_workflow_supplier_delay_linked_po(seeded_db):
     if not prod:
         pytest.skip("no product linked to supplier")
     po = PurchaseOrder(
-        po_number="PO-WF-1", supplier_id=sup.id, status=POStatus.delayed,
+        po_number=f"PO-WF-{uuid.uuid4().hex[:8].upper()}",
+        supplier_id=sup.id, status=POStatus.delayed,
         order_date=datetime.utcnow() - timedelta(days=30),
         expected_delivery=datetime.utcnow() - timedelta(days=5),
         total_cost=2000, transport_cost=80,

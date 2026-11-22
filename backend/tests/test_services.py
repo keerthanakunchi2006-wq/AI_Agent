@@ -2,6 +2,7 @@
 forecasting, supplier evaluation, optimisation, approval, tracking."""
 from __future__ import annotations
 
+import uuid
 from datetime import datetime, timedelta
 
 import pytest
@@ -18,8 +19,9 @@ from app.services import optimization, approval, tracking
 def test_detect_delays_finds_late_pos(seeded_db):
     # create a deliberately late PO
     sup = seeded_db.query(Supplier).first()
+    po_num = f"PO-LATE-{uuid.uuid4().hex[:8].upper()}"
     po = PurchaseOrder(
-        po_number="PO-LATE-1", supplier_id=sup.id, status=POStatus.in_transit,
+        po_number=po_num, supplier_id=sup.id, status=POStatus.in_transit,
         order_date=datetime.utcnow() - timedelta(days=40),
         expected_delivery=datetime.utcnow() - timedelta(days=10),
         total_cost=1000, transport_cost=50,
@@ -27,8 +29,8 @@ def test_detect_delays_finds_late_pos(seeded_db):
     seeded_db.add(po)
     seeded_db.commit()
     delays = monitoring.detect_delays(seeded_db)
-    assert any(d["po_number"] == "PO-LATE-1" for d in delays)
-    late = next(d for d in delays if d["po_number"] == "PO-LATE-1")
+    assert any(d["po_number"] == po_num for d in delays)
+    late = next(d for d in delays if d["po_number"] == po_num)
     assert late["days_late"] > 0
 
 
@@ -61,8 +63,9 @@ def test_impact_analysis_supplier_delay_linked_po(seeded_db):
     prod = seeded_db.query(Product).filter(Product.primary_supplier_id == sup.id).first()
     if not prod:
         pytest.skip("no product for supplier")
+    po_num = f"PO-IMPACT-{uuid.uuid4().hex[:8].upper()}"
     po = PurchaseOrder(
-        po_number="PO-IMPACT-1", supplier_id=sup.id, status=POStatus.delayed,
+        po_number=po_num, supplier_id=sup.id, status=POStatus.delayed,
         order_date=datetime.utcnow() - timedelta(days=20),
         expected_delivery=datetime.utcnow() - timedelta(days=3),
         total_cost=500, transport_cost=20,

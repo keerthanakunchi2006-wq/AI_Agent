@@ -149,7 +149,7 @@ def predict_shortages(db: Session, horizon_months: int = 3) -> list[dict[str, An
 # ---- small date helpers (kept local to avoid extra imports) ----------------
 
 def datetime_period_now() -> str:
-    now = pd.Timestamp.utcnow().to_pydatetime()
+    now = pd.Timestamp.now("UTC").to_pydatetime()
     return f"{now.year}-{now.month:02d}"
 
 

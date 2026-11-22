@@ -75,7 +75,7 @@ def analyze_impact(db: Session, disruption: Disruption) -> dict[str, Any]:
         affected_products = affected_products_for_supplier(db, supplier_id)
         affected_pos = affected_open_pos(db, supplier_id)
     elif disruption.type == DisruptionType.supplier_delay and disruption.po_id:
-        po = db.query(PurchaseOrder).get(disruption.po_id) if hasattr(db.query(PurchaseOrder), "get") else db.get(PurchaseOrder, disruption.po_id)
+        po = db.get(PurchaseOrder, disruption.po_id)
         affected_pos = [po] if po else []
         affected_products = list({it.product_id for po in affected_pos for it in po.items})
     elif product_id:

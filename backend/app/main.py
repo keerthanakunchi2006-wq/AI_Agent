@@ -119,6 +119,16 @@ def root():
 
 
 # Serve the frontend static files (dashboard) if present
+# Mount at /ui for explicit access AND mount subdirs at root so relative
+# paths in index.html (css/..., js/...) resolve correctly from /.
 _frontend_dir = Path(__file__).resolve().parent.parent.parent / "frontend"
 if _frontend_dir.exists():
     app.mount("/ui", StaticFiles(directory=str(_frontend_dir), html=True), name="ui")
+    # Mount css/ and js/ at root level so relative asset paths work when
+    # index.html is served from /
+    _css_dir = _frontend_dir / "css"
+    _js_dir  = _frontend_dir / "js"
+    if _css_dir.exists():
+        app.mount("/css", StaticFiles(directory=str(_css_dir)), name="css")
+    if _js_dir.exists():
+        app.mount("/js", StaticFiles(directory=str(_js_dir)), name="js")

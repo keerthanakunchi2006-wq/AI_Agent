@@ -30,10 +30,26 @@ a { color: var(--primary); text-decoration: none; }
 a:hover { text-decoration: underline; }
 
 /* ---------- Layout ---------- */
-.app { display: flex; min-height: 100vh; }
+.app {
+  display: flex;
+  min-height: 100vh;
+  /* Full-height layout: sidebar fixed, main scrolls */
+  height: 100vh;
+  overflow: hidden;
+}
 .sidebar {
-  width: 248px; background: var(--bg-soft); border-right: 1px solid var(--border);
-  padding: 20px 14px; position: sticky; top: 0; height: 100vh; overflow-y: auto;
+  width: 248px;
+  min-width: 248px;         /* prevent flex shrink */
+  background: var(--bg-soft);
+  border-right: 1px solid var(--border);
+  padding: 20px 14px;
+  height: 100vh;
+  overflow-y: auto;
+  flex-shrink: 0;
+  /* NOT sticky — it's a fixed-height flex item */
+  position: relative;
+  z-index: 10;
+  transition: width 0.25s ease, min-width 0.25s ease, padding 0.25s ease;
 }
 .brand {
   display: flex; align-items: center; gap: 10px; padding: 6px 10px 18px;
@@ -56,11 +72,26 @@ a:hover { text-decoration: underline; }
 .nav-section { font-size: 0.72rem; text-transform: uppercase; color: #64748b;
   padding: 14px 12px 6px; letter-spacing: 0.5px; }
 
-.main { flex: 1; display: flex; flex-direction: column; min-width: 0; }
+.main {
+  flex: 1;
+  display: flex;
+  flex-direction: column;
+  min-width: 0;
+  height: 100vh;
+  overflow-y: auto;   /* main area scrolls, not the body */
+}
 .topbar {
-  height: 64px; border-bottom: 1px solid var(--border); background: var(--bg-soft);
-  display: flex; align-items: center; justify-content: space-between;
-  padding: 0 26px; position: sticky; top: 0; z-index: 5;
+  height: 64px;
+  border-bottom: 1px solid var(--border);
+  background: var(--bg-soft);
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  padding: 0 26px;
+  position: sticky;
+  top: 0;
+  z-index: 5;
+  flex-shrink: 0;
 }
 .topbar h1 { font-size: 1.15rem; font-weight: 600; }
 .topbar .user { display: flex; align-items: center; gap: 10px; font-size: 0.9rem; color: var(--text-dim); }
@@ -118,8 +149,11 @@ tr:hover td { background: rgba(255,255,255,0.02); }
 input, select, textarea {
   background: var(--bg); border: 1px solid var(--border); color: var(--text);
   padding: 10px 12px; border-radius: 10px; font-size: 0.9rem; font-family: inherit;
+  transition: border-color 0.15s;
 }
+input::placeholder { color: var(--text-dim); }
 input:focus, select:focus, textarea:focus { outline: none; border-color: var(--primary); }
+select option { background: #1e293b; color: #e2e8f0; }
 .form-row { display: grid; grid-template-columns: repeat(auto-fit, minmax(180px, 1fr)); gap: 14px; }
 
 .btn { background: var(--primary); color: #fff; border: none; padding: 10px 18px;
@@ -185,6 +219,57 @@ input:focus, select:focus, textarea:focus { outline: none; border-color: var(--p
 .stat-line { font-size: 0.85rem; color: var(--text-dim); }
 .stat-line b { color: var(--text); }
 .compare-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 16px; }
-@media (max-width: 760px) { .compare-grid { grid-template-columns: 1fr; } .sidebar { display: none; } }
+@media (max-width: 760px) { .compare-grid { grid-template-columns: 1fr; } }
 .hidden { display: none !important; }
 .scrolly { max-height: 520px; overflow-y: auto; }
+
+/* ---------- Sidebar toggle ---------- */
+.sidebar.collapsed {
+  width: 0;
+  min-width: 0;
+  overflow: hidden;
+  padding: 0;
+}
+
+@media (max-width: 760px) {
+  .app {
+    height: auto;
+    overflow: visible;
+  }
+  .main {
+    height: auto;
+    overflow-y: visible;
+  }
+  .sidebar {
+    position: fixed;
+    left: 0;
+    top: 0;
+    z-index: 200;
+    height: 100vh;
+    width: 248px !important;
+    min-width: 248px !important;
+    padding: 20px 14px !important;
+    overflow-y: auto;
+    transform: translateX(-100%);
+    transition: transform 0.25s ease;
+  }
+  .sidebar.open {
+    transform: translateX(0);
+  }
+  .sidebar.collapsed {
+    transform: translateX(-100%);
+    width: 248px !important;
+    min-width: 248px !important;
+  }
+  .content {
+    padding: 16px;
+  }
+}
+
+/* ---------- Workflow pipeline ---------- */
+.pipeline-step { display: flex; align-items: flex-start; gap: 14px; padding: 10px 0; }
+.pipeline-step + .pipeline-step { border-top: 1px solid var(--border); }
+.step-icon { width: 36px; height: 36px; border-radius: 50%; background: var(--primary);
+  display: grid; place-items: center; flex-shrink: 0; font-size: 1.1rem; }
+.step-label { font-weight: 600; font-size: 0.92rem; }
+.step-data { color: var(--text-dim); font-size: 0.82rem; margin-top: 2px; }
