@@ -1,0 +1,15 @@
+============================= test session starts =============================
+platform win32 -- Python 3.14.0, pytest-9.2.0, pluggy-1.7.0
+rootdir: C:\Users\impana\AI_Project\AI_Agent\AI_Agent\backend
+configfile: pytest.ini
+plugins: anyio-4.16.0, langsmith-0.16.0, asyncio-1.5.0
+asyncio: mode=Mode.STRICT, debug=False, asyncio_default_fixture_loop_scope=None, asyncio_default_test_loop_scope=function
+collected 28 items
+
+tests\test_agents.py ..                                                  [  7%]
+tests\test_api.py ................                                       [ 64%]
+tests\test_services.py ..........                                        [100%]
+
+============================= 28 passed in 14.82s =============================
+
+---STDERR---

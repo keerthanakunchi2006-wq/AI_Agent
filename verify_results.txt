@@ -1,0 +1,88 @@
+{"count": 20, "event": "seed.suppliers", "level": "info", "timestamp": "2026-11-22T06:25:15.904236Z"}
+{"count": 40, "event": "seed.products", "level": "info", "timestamp": "2026-11-22T06:25:15.929809Z"}
+{"count": 80, "event": "seed.inventory", "level": "info", "timestamp": "2026-11-22T06:25:15.955521Z"}
+{"count": 20, "event": "seed.customers", "level": "info", "timestamp": "2026-11-22T06:25:15.976808Z"}
+{"count": 60, "event": "seed.transportation", "level": "info", "timestamp": "2026-11-22T06:25:16.006768Z"}
+{"pos": 80, "items": 258, "event": "seed.purchase_orders", "level": "info", "timestamp": "2026-11-22T06:25:16.090007Z"}
+{"count": 80, "event": "seed.deliveries", "level": "info", "timestamp": "2026-11-22T06:25:16.117248Z"}
+{"cos": 60, "items": 153, "event": "seed.customer_orders", "level": "info", "timestamp": "2026-11-22T06:25:16.158711Z"}
+{"count": 228, "event": "seed.supplier_performance", "level": "info", "timestamp": "2026-11-22T06:25:16.226704Z"}
+{"env": "development", "db": "sqlite:///C:\\Users\\impana\\AppData\\Local\\Temp\\sc_verify.db", "cache": "memory", "event": "app.started", "level": "info", "timestamp": "2026-11-22T06:25:16.787927Z"}
+HTTP Request: POST http://testserver/api/v1/auth/login "HTTP/1.1 200 OK"
+HTTP Request: GET http://testserver/health "HTTP/1.1 200 OK"
+HTTP Request: GET http://testserver/api/v1/dashboard/summary "HTTP/1.1 200 OK"
+{"count": 45, "event": "monitoring.delays_detected", "level": "info", "timestamp": "2026-11-22T06:25:17.473366Z"}
+{"products": 40, "event": "forecasting.complete", "level": "info", "timestamp": "2026-11-22T06:25:17.642365Z"}
+HTTP Request: GET http://testserver/api/v1/dashboard/risk-alerts "HTTP/1.1 200 OK"
+HTTP Request: GET http://testserver/api/v1/dashboard/supplier-performance "HTTP/1.1 200 OK"
+{"products": 120, "event": "forecasting.complete", "level": "info", "timestamp": "2026-11-22T06:25:17.863207Z"}
+HTTP Request: GET http://testserver/api/v1/dashboard/demand-forecast "HTTP/1.1 200 OK"
+HTTP Request: GET http://testserver/api/v1/dashboard/low-inventory "HTTP/1.1 200 OK"
+HTTP Request: GET http://testserver/api/v1/master/suppliers?limit=5 "HTTP/1.1 200 OK"
+HTTP Request: GET http://testserver/api/v1/master/products?limit=5 "HTTP/1.1 200 OK"
+HTTP Request: GET http://testserver/api/v1/master/inventory?limit=5 "HTTP/1.1 200 OK"
+HTTP Request: GET http://testserver/api/v1/master/customers?limit=5 "HTTP/1.1 200 OK"
+HTTP Request: GET http://testserver/api/v1/master/purchase-orders?limit=5 "HTTP/1.1 200 OK"
+HTTP Request: GET http://testserver/api/v1/master/deliveries?limit=5 "HTTP/1.1 200 OK"
+HTTP Request: GET http://testserver/api/v1/master/transportation "HTTP/1.1 200 OK"
+HTTP Request: GET http://testserver/api/v1/disruptions "HTTP/1.1 200 OK"
+HTTP Request: GET http://testserver/api/v1/recovery/plans "HTTP/1.1 200 OK"
+HTTP Request: GET http://testserver/api/v1/approvals "HTTP/1.1 200 OK"
+HTTP Request: GET http://testserver/api/v1/approvals/pending "HTTP/1.1 200 OK"
+HTTP Request: GET http://testserver/api/v1/recovery/decisions "HTTP/1.1 200 OK"
+HTTP Request: GET http://testserver/api/v1/forecasting/demand "HTTP/1.1 200 OK"
+HTTP Request: GET http://testserver/api/v1/forecasting/shortages "HTTP/1.1 200 OK"
+HTTP Request: GET http://testserver/api/v1/master/suppliers?limit=1 "HTTP/1.1 200 OK"
+{"disruption": 1, "products": 3, "orders": 3, "shortfall": 0.0, "event": "impact_analysis.complete", "level": "info", "timestamp": "2026-11-22T06:25:18.232705Z"}
+{"product": 4, "candidates": 18, "event": "supplier_eval.complete", "level": "info", "timestamp": "2026-11-22T06:25:18.295461Z"}
+{"product": 8, "candidates": 18, "event": "supplier_eval.complete", "level": "info", "timestamp": "2026-11-22T06:25:18.356320Z"}
+{"product": 39, "candidates": 18, "event": "supplier_eval.complete", "level": "info", "timestamp": "2026-11-22T06:25:18.436966Z"}
+{"product": 4, "candidates": 18, "event": "supplier_eval.complete", "level": "info", "timestamp": "2026-11-22T06:25:18.568418Z"}
+{"assignments": 1, "event": "optimization.greedy_used", "level": "info", "timestamp": "2026-11-22T06:25:18.568903Z"}
+HTTP Request: POST http://testserver/api/v1/simulations/what-if "HTTP/1.1 200 OK"
+{"backend": "memory", "event": "orchestrator.checkpointer", "level": "info", "timestamp": "2026-11-22T06:25:21.595562Z"}
+{"count": 45, "event": "monitoring.delays_detected", "level": "info", "timestamp": "2026-11-22T06:25:21.705319Z"}
+{"disruption": 2, "products": 3, "orders": 3, "shortfall": 0.0, "event": "impact_analysis.complete", "level": "info", "timestamp": "2026-11-22T06:25:21.739426Z"}
+{"products": 9, "event": "forecasting.complete", "level": "info", "timestamp": "2026-11-22T06:25:21.787687Z"}
+{"product": 4, "candidates": 18, "event": "supplier_eval.complete", "level": "info", "timestamp": "2026-11-22T06:25:21.852463Z"}
+{"product": 8, "candidates": 18, "event": "supplier_eval.complete", "level": "info", "timestamp": "2026-11-22T06:25:21.921942Z"}
+{"product": 39, "candidates": 18, "event": "supplier_eval.complete", "level": "info", "timestamp": "2026-11-22T06:25:21.980061Z"}
+{"product": 4, "candidates": 18, "event": "supplier_eval.complete", "level": "info", "timestamp": "2026-11-22T06:25:22.055244Z"}
+{"assignments": 1, "event": "optimization.greedy_used", "level": "info", "timestamp": "2026-11-22T06:25:22.055506Z"}
+HTTP Request: POST http://testserver/api/v1/disruptions/run "HTTP/1.1 200 OK"
+HTTP Request: GET http://testserver/api/v1/master/products?limit=1 "HTTP/1.1 200 OK"
+{"product": 1, "candidates": 19, "event": "supplier_eval.complete", "level": "info", "timestamp": "2026-11-22T06:25:22.198797Z"}
+HTTP Request: GET http://testserver/api/v1/recovery/alternatives?product_id=1&quantity=200 "HTTP/1.1 200 OK"
+============================================================
+  OK            login
+  OK            /health
+  OK            /api/v1/dashboard/summary
+  OK            /api/v1/dashboard/risk-alerts
+  OK            /api/v1/dashboard/supplier-performance
+  OK            /api/v1/dashboard/demand-forecast
+  OK            /api/v1/dashboard/low-inventory
+  OK            /api/v1/master/suppliers?limit=5
+  OK            /api/v1/master/products?limit=5
+  OK            /api/v1/master/inventory?limit=5
+  OK            /api/v1/master/customers?limit=5
+  OK            /api/v1/master/purchase-orders?limit=5
+  OK            /api/v1/master/deliveries?limit=5
+  OK            /api/v1/master/transportation
+  OK            /api/v1/disruptions
+  OK            /api/v1/recovery/plans
+  OK            /api/v1/approvals
+  OK            /api/v1/approvals/pending
+  OK            /api/v1/recovery/decisions
+  OK            /api/v1/forecasting/demand
+  OK            /api/v1/forecasting/shortages
+  OK            POST /simulations/what-if
+  OK            POST /disruptions/run
+  OK            workflow_thread_id
+  OK            workflow_disruption_id
+  FAIL(tracking_complete)  workflow_status
+  OK            workflow_has_plan
+  OK            GET /recovery/alternatives
+============================================================
+ALL ENDPOINTS OK
+
+---STDERR---
