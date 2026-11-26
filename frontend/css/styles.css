@@ -273,3 +273,34 @@ select option { background: #1e293b; color: #e2e8f0; }
   display: grid; place-items: center; flex-shrink: 0; font-size: 1.1rem; }
 .step-label { font-weight: 600; font-size: 0.92rem; }
 .step-data { color: var(--text-dim); font-size: 0.82rem; margin-top: 2px; }
+
+/* ---------- Multilingual font support ---------- */
+body {
+  font-family: 'Inter', 'Noto Sans', 'Noto Sans Devanagari', 'Noto Sans Kannada',
+    'Noto Sans Tamil', 'Noto Sans Telugu', 'Noto Sans Malayalam',
+    'Segoe UI', system-ui, -apple-system, sans-serif;
+}
+
+/* Language selector in topbar */
+#lang-select {
+  background: var(--bg);
+  border: 1px solid var(--border);
+  color: var(--text);
+  padding: 5px 28px 5px 8px;
+  border-radius: 8px;
+  font-size: 0.8rem;
+  cursor: pointer;
+  min-width: 110px;
+  font-family: 'Noto Sans', 'Noto Sans Devanagari', 'Noto Sans Kannada',
+    'Noto Sans Tamil', 'Noto Sans Telugu', 'Noto Sans Malayalam',
+    'Segoe UI', system-ui, sans-serif;
+}
+#lang-select:focus {
+  outline: none;
+  border-color: var(--primary);
+}
+#lang-select option {
+  background: #1e293b;
+  color: #e2e8f0;
+  font-size: 0.85rem;
+}

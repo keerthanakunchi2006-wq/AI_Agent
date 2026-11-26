@@ -4,37 +4,40 @@
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
   <title>Supply Chain Disruption &amp; Replanning System</title>
+  <!-- Google Fonts: Inter (UI) + Noto fonts for all six Indic scripts -->
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&family=Noto+Sans:wght@400;600;700&family=Noto+Sans+Devanagari:wght@400;600;700&family=Noto+Sans+Kannada:wght@400;600;700&family=Noto+Sans+Tamil:wght@400;600;700&family=Noto+Sans+Telugu:wght@400;600;700&family=Noto+Sans+Malayalam:wght@400;600;700&display=swap" rel="stylesheet" />
   <link rel="stylesheet" href="css/styles.css" />
   <script src="https://cdn.jsdelivr.net/npm/chart.js@4.4.3/dist/chart.umd.min.js"></script>
+  <!-- i18n must load before app.js -->
+  <script src="js/translations.js"></script>
 </head>
 <body>
 
 <!-- ============ LOGIN ============ -->
 <div id="login-view" class="login-wrap hidden">
   <div class="login-card">
-    <div class="brand"><div class="logo">⬡</div><span>Supply Chain AI</span></div>
-    <h2>Sign in</h2>
+    <div class="brand"><div class="logo">⬡</div><span data-i18n="app_name">Supply Chain AI</span></div>
+    <h2 data-i18n="sign_in">Sign in</h2>
     <form id="login-form">
       <div class="field" style="margin-bottom:14px;">
-        <label>Username</label>
-        <input id="login-user" type="text" placeholder="admin" required autocomplete="username" />
+        <label data-i18n="username">Username</label>
+        <input id="login-user" type="text" placeholder="" required autocomplete="username" />
       </div>
       <div class="field" style="margin-bottom:18px;">
-        <label>Password</label>
-        <input id="login-pass" type="password" placeholder="admin123" required autocomplete="current-password" />
+        <label data-i18n="password">Password</label>
+        <input id="login-pass" type="password" placeholder="" required autocomplete="current-password" />
       </div>
-      <button class="btn" type="submit" style="width:100%;">Login</button>
+      <button class="btn" type="submit" style="width:100%;" data-i18n="login_btn">Login</button>
     </form>
-    <div class="demo-hint">
-      Demo — <code>admin/admin123</code> · <code>approver/approver123</code> · <code>analyst/analyst123</code>
-    </div>
   </div>
 </div>
 
 <!-- ============ APP SHELL ============ -->
 <div id="app-shell" class="app hidden">
   <aside class="sidebar" id="sidebar">
-    <div class="brand"><div class="logo">⬡</div><span>Supply Chain AI</span></div>
+    <div class="brand"><div class="logo">⬡</div><span data-i18n="app_name">Supply Chain AI</span></div>
     <nav id="nav" class="nav"></nav>
   </aside>
   <div class="main">
@@ -47,7 +50,16 @@
         <span id="user-role" class="badge badge-blue">role</span>
         <span id="user-name">user</span>
         <div class="avatar" id="avatar">U</div>
-        <button id="logout-btn" class="btn btn-ghost btn-sm">Logout</button>
+        <!-- Language selector -->
+        <select id="lang-select" title="Language / भाषा / ಭಾಷೆ / மொழி / భాష / ഭാഷ" style="font-size:0.8rem;padding:5px 28px 5px 8px;min-width:110px;">
+          <option value="en">English</option>
+          <option value="hi">हिन्दी</option>
+          <option value="kn">ಕನ್ನಡ</option>
+          <option value="ta">தமிழ்</option>
+          <option value="te">తెలుగు</option>
+          <option value="ml">മലയാളം</option>
+        </select>
+        <button id="logout-btn" class="btn btn-ghost btn-sm" data-i18n="logout">Logout</button>
       </div>
     </header>
     <main class="content">
@@ -58,16 +70,25 @@
         <div id="kpi-grid" class="grid kpi-grid"></div>
         <div class="grid two-col mt">
           <div class="card">
-            <div class="card-head"><h3>Supplier On-Time Performance</h3><span class="muted">by month</span></div>
+            <div class="card-head">
+              <h3 data-i18n="supplier_ontime_perf">Supplier On-Time Performance</h3>
+              <span class="muted" data-i18n="by_month">by month</span>
+            </div>
             <div class="chart-box"><canvas id="chart-supplier-perf"></canvas></div>
           </div>
           <div class="card">
-            <div class="card-head"><h3>Demand Forecast</h3><span class="muted">predicted units</span></div>
+            <div class="card-head">
+              <h3 data-i18n="demand_forecast">Demand Forecast</h3>
+              <span class="muted" data-i18n="predicted_units">predicted units</span>
+            </div>
             <div class="chart-box"><canvas id="chart-demand"></canvas></div>
           </div>
         </div>
         <div class="card mt">
-          <div class="card-head"><h3>Risk Alerts</h3><span class="muted">live</span></div>
+          <div class="card-head">
+            <h3 data-i18n="risk_alerts">Risk Alerts</h3>
+            <span class="muted" data-i18n="live">live</span>
+          </div>
           <div id="risk-list"></div>
         </div>
       </section>
@@ -76,16 +97,24 @@
       <section id="view-suppliers" class="view">
         <div class="card">
           <div class="card-head">
-            <h3>Suppliers</h3>
+            <h3 data-i18n="suppliers">Suppliers</h3>
             <span id="suppliers-count" class="muted"></span>
           </div>
           <div class="field" style="max-width:280px;margin-bottom:14px;">
-            <input id="sup-search" type="text" placeholder="Search suppliers…" />
+            <input id="sup-search" type="text" data-i18n-placeholder="search_suppliers" placeholder="Search suppliers…" />
           </div>
           <div class="table-wrap">
             <table id="suppliers-table">
-              <thead><tr><th>Code</th><th>Name</th><th>Country</th><th>Region</th>
-              <th>Rating</th><th>On-time</th><th>Lead time</th><th>Status</th></tr></thead>
+              <thead><tr>
+                <th data-i18n="col_code">Code</th>
+                <th data-i18n="col_name">Name</th>
+                <th data-i18n="col_country">Country</th>
+                <th data-i18n="col_region">Region</th>
+                <th data-i18n="col_rating">Rating</th>
+                <th data-i18n="col_ontime">On-time</th>
+                <th data-i18n="col_lead_time">Lead time</th>
+                <th data-i18n="col_status">Status</th>
+              </tr></thead>
               <tbody></tbody>
             </table>
           </div>
@@ -95,11 +124,20 @@
       <!-- ===== Inventory ===== -->
       <section id="view-inventory" class="view">
         <div class="card">
-          <div class="card-head"><h3>Inventory Status</h3><span id="inv-count" class="muted"></span></div>
+          <div class="card-head">
+            <h3 data-i18n="inventory_status">Inventory Status</h3>
+            <span id="inv-count" class="muted"></span>
+          </div>
           <div class="table-wrap">
             <table id="inv-table">
-              <thead><tr><th>Product</th><th>Warehouse</th><th>On Hand</th>
-              <th>Safety Stock</th><th>Reorder Point</th><th>Status</th></tr></thead>
+              <thead><tr>
+                <th data-i18n="col_product">Product</th>
+                <th data-i18n="col_warehouse">Warehouse</th>
+                <th data-i18n="col_on_hand">On Hand</th>
+                <th data-i18n="col_safety_stock">Safety Stock</th>
+                <th data-i18n="col_reorder_point">Reorder Point</th>
+                <th data-i18n="col_status">Status</th>
+              </tr></thead>
               <tbody></tbody>
             </table>
           </div>
@@ -110,24 +148,32 @@
       <section id="view-orders" class="view">
         <div class="card">
           <div class="card-head">
-            <h3>Purchase Orders</h3>
+            <h3 data-i18n="purchase_orders">Purchase Orders</h3>
             <div class="flex gap">
               <select id="order-status-filter">
-                <option value="">All statuses</option>
-                <option value="open">Open</option>
-                <option value="in_transit">In transit</option>
-                <option value="delivered">Delivered</option>
-                <option value="delayed">Delayed</option>
-                <option value="cancelled">Cancelled</option>
+                <option value="" data-i18n="all_statuses">All statuses</option>
+                <option value="open" data-i18n="status_open">Open</option>
+                <option value="in_transit" data-i18n="status_in_transit">In transit</option>
+                <option value="delivered" data-i18n="status_delivered">Delivered</option>
+                <option value="delayed" data-i18n="status_delayed">Delayed</option>
+                <option value="cancelled" data-i18n="status_cancelled">Cancelled</option>
               </select>
               <span id="orders-count" class="muted"></span>
             </div>
           </div>
           <div class="table-wrap">
             <table id="orders-table">
-              <thead><tr><th>PO #</th><th>Supplier</th><th>Status</th>
-              <th>Order Date</th><th>Expected</th><th>Actual</th>
-              <th>Total</th><th>Transport</th><th>Items</th></tr></thead>
+              <thead><tr>
+                <th data-i18n="col_po_number">PO #</th>
+                <th data-i18n="col_supplier">Supplier</th>
+                <th data-i18n="col_status">Status</th>
+                <th data-i18n="col_order_date">Order Date</th>
+                <th data-i18n="col_expected">Expected</th>
+                <th data-i18n="col_actual">Actual</th>
+                <th data-i18n="col_total">Total</th>
+                <th data-i18n="col_transport">Transport</th>
+                <th data-i18n="col_items">Items</th>
+              </tr></thead>
               <tbody></tbody>
             </table>
           </div>
@@ -138,13 +184,13 @@
       <section id="view-forecasting" class="view">
         <div class="card">
           <div class="card-head">
-            <h3>Demand Forecast — 3-month horizon</h3>
+            <h3 data-i18n="forecast_3month">Demand Forecast — 3-month horizon</h3>
             <span id="forecast-count" class="muted"></span>
           </div>
           <div class="chart-box"><canvas id="chart-forecast"></canvas></div>
         </div>
         <div class="card mt">
-          <div class="card-head"><h3>Predicted Shortages</h3></div>
+          <div class="card-head"><h3 data-i18n="predicted_shortages">Predicted Shortages</h3></div>
           <div id="shortage-list"></div>
         </div>
       </section>
@@ -153,61 +199,50 @@
       <section id="view-workflow" class="view">
         <div class="grid two-col">
           <div class="card">
-            <div class="card-head"><h3>🤖 Run Full Agent Workflow</h3></div>
-            <p class="muted" style="font-size:0.85rem;margin-bottom:16px;line-height:1.6;">
-              Triggers the complete 7-agent LangGraph pipeline: Monitoring → Impact Analysis →
-              Forecasting → Supplier Evaluation → LP Optimisation → Human Approval Gate → Tracking.
-            </p>
+            <div class="card-head"><h3 data-i18n="run_agent_workflow">🤖 Run Full Agent Workflow</h3></div>
+            <p class="muted" id="wf-desc-para" style="font-size:0.85rem;margin-bottom:16px;line-height:1.6;"></p>
             <div class="form-row">
               <div class="field">
-                <label>Disruption Type</label>
+                <label data-i18n="disruption_type">Disruption Type</label>
                 <select id="wf-type">
-                  <option value="supplier_delay">supplier delay</option>
-                  <option value="supplier_unavailable">supplier unavailable</option>
-                  <option value="demand_spike">demand spike</option>
-                  <option value="inventory_shortage">inventory shortage</option>
-                  <option value="transport_disruption">transport disruption</option>
+                  <option value="supplier_delay" data-i18n="dt_supplier_delay">Supplier Delay</option>
+                  <option value="supplier_unavailable" data-i18n="dt_supplier_unavailable">Supplier Unavailable</option>
+                  <option value="demand_spike" data-i18n="dt_demand_spike">Demand Spike</option>
+                  <option value="inventory_shortage" data-i18n="dt_inventory_shortage">Inventory Shortage</option>
+                  <option value="transport_disruption" data-i18n="dt_transport_disruption">Transport Disruption</option>
                 </select>
               </div>
               <div class="field">
-                <label>Severity</label>
+                <label data-i18n="severity">Severity</label>
                 <select id="wf-severity">
-                  <option value="low">low</option>
-                  <option value="medium">medium</option>
-                  <option value="high" selected>high</option>
-                  <option value="critical">critical</option>
+                  <option value="low" data-i18n="sev_low">Low</option>
+                  <option value="medium" data-i18n="sev_medium">Medium</option>
+                  <option value="high" selected data-i18n="sev_high">High</option>
+                  <option value="critical" data-i18n="sev_critical">Critical</option>
                 </select>
               </div>
               <div class="field">
-                <label>Supplier (optional)</label>
-                <select id="wf-supplier"><option value="">— none —</option></select>
+                <label data-i18n="supplier_optional">Supplier (optional)</label>
+                <select id="wf-supplier"><option value="" data-i18n="none">— none —</option></select>
               </div>
               <div class="field">
-                <label>Product (optional)</label>
-                <select id="wf-product"><option value="">— none —</option></select>
+                <label data-i18n="product_optional">Product (optional)</label>
+                <select id="wf-product"><option value="" data-i18n="none">— none —</option></select>
               </div>
               <div class="field">
-                <label>Estimated Delay (days)</label>
+                <label data-i18n="estimated_delay_days">Estimated Delay (days)</label>
                 <input id="wf-delay" type="number" value="10" min="0" />
               </div>
               <div class="field">
-                <label>Description</label>
-                <input id="wf-desc" type="text" placeholder="e.g. Port strike at origin" />
+                <label data-i18n="description">Description</label>
+                <input id="wf-desc" type="text" data-i18n-placeholder="desc_placeholder" placeholder="e.g. Port strike at origin" />
               </div>
             </div>
-            <button id="wf-run" class="btn mt" style="min-width:160px;">▶ Run Workflow</button>
+            <button id="wf-run" class="btn mt" style="min-width:160px;" data-i18n="run_full_workflow">▶ Run Workflow</button>
           </div>
           <div class="card">
-            <div class="card-head"><h3>About the Pipeline</h3></div>
-            <div style="font-size:0.85rem;color:var(--text-dim);line-height:1.7;">
-              <div>👁️ <b>Monitoring</b> — detects delayed POs &amp; at-risk suppliers</div>
-              <div>🔍 <b>Impact Analysis</b> — traces affected products, orders, inventory gaps</div>
-              <div>📈 <b>Forecasting</b> — predicts demand shortfalls with LinearRegression</div>
-              <div>⚖️ <b>Supplier Evaluation</b> — scores alternatives (cost, delay, reliability)</div>
-              <div>🔧 <b>Optimization</b> — OR-Tools LP minimises cost + delay penalty</div>
-              <div>🔔 <b>Approval Gate</b> — routes large plans to human approvers</div>
-              <div>📜 <b>Tracking</b> — records every decision for audit</div>
-            </div>
+            <div class="card-head"><h3 data-i18n="about_pipeline">About the Pipeline</h3></div>
+            <div id="pipeline-about" style="font-size:0.85rem;color:var(--text-dim);line-height:1.7;"></div>
           </div>
         </div>
         <div id="wf-output" class="hidden mt"></div>
@@ -217,54 +252,60 @@
       <section id="view-simulation" class="view">
         <div class="grid two-col">
           <div class="card">
-            <div class="card-head"><h3>What-if Disruption Simulation</h3></div>
+            <div class="card-head"><h3 data-i18n="what_if_simulation">What-if Disruption Simulation</h3></div>
             <div class="form-row">
-              <div class="field"><label>Disruption type</label>
+              <div class="field">
+                <label data-i18n="disruption_type">Disruption type</label>
                 <select id="sim-type">
-                  <option value="supplier_delay">supplier delay</option>
-                  <option value="supplier_unavailable">supplier unavailable</option>
-                  <option value="demand_spike">demand spike</option>
-                  <option value="inventory_shortage">inventory shortage</option>
-                  <option value="transport_disruption">transport disruption</option>
+                  <option value="supplier_delay" data-i18n="dt_supplier_delay">Supplier Delay</option>
+                  <option value="supplier_unavailable" data-i18n="dt_supplier_unavailable">Supplier Unavailable</option>
+                  <option value="demand_spike" data-i18n="dt_demand_spike">Demand Spike</option>
+                  <option value="inventory_shortage" data-i18n="dt_inventory_shortage">Inventory Shortage</option>
+                  <option value="transport_disruption" data-i18n="dt_transport_disruption">Transport Disruption</option>
                 </select>
               </div>
-              <div class="field"><label>Severity</label>
+              <div class="field">
+                <label data-i18n="severity">Severity</label>
                 <select id="sim-severity">
-                  <option value="low">low</option>
-                  <option value="medium">medium</option>
-                  <option value="high" selected>high</option>
-                  <option value="critical">critical</option>
+                  <option value="low" data-i18n="sev_low">Low</option>
+                  <option value="medium" data-i18n="sev_medium">Medium</option>
+                  <option value="high" selected data-i18n="sev_high">High</option>
+                  <option value="critical" data-i18n="sev_critical">Critical</option>
                 </select>
               </div>
-              <div class="field"><label>Supplier ID (optional)</label>
-                <input id="sim-supplier" type="number" placeholder="e.g. 3" /></div>
-              <div class="field"><label>Product ID (optional)</label>
-                <input id="sim-product" type="number" placeholder="e.g. 12" /></div>
-              <div class="field"><label>Est. delay (days)</label>
-                <input id="sim-delay" type="number" value="10" /></div>
-              <div class="field"><label>Description</label>
-                <input id="sim-desc" type="text" placeholder="Port strike at origin" /></div>
+              <div class="field">
+                <label data-i18n="supplier_id_optional">Supplier ID (optional)</label>
+                <input id="sim-supplier" type="number" placeholder="e.g. 3" />
+              </div>
+              <div class="field">
+                <label data-i18n="product_id_optional">Product ID (optional)</label>
+                <input id="sim-product" type="number" placeholder="e.g. 12" />
+              </div>
+              <div class="field">
+                <label data-i18n="est_delay_days">Est. delay (days)</label>
+                <input id="sim-delay" type="number" value="10" />
+              </div>
+              <div class="field">
+                <label data-i18n="description">Description</label>
+                <input id="sim-desc" type="text" data-i18n-placeholder="desc_placeholder" placeholder="Port strike at origin" />
+              </div>
             </div>
-            <button id="sim-run" class="btn mt">Run Simulation</button>
+            <button id="sim-run" class="btn mt" data-i18n="run_simulation">Run Simulation</button>
           </div>
           <div class="card">
-            <div class="card-head"><h3>About</h3></div>
-            <p class="muted" style="font-size:0.88rem;line-height:1.6;">
-              Runs a deterministic sandbox simulation: impact analysis, supplier scoring,
-              and OR-Tools optimisation — without committing a full agent workflow run.
-              Compare original vs optimised plan cost and delay side-by-side.
-            </p>
+            <div class="card-head"><h3 data-i18n="about">About</h3></div>
+            <p class="muted" id="sim-about-text" style="font-size:0.88rem;line-height:1.6;"></p>
           </div>
         </div>
         <div id="sim-output" class="hidden mt">
           <div id="sim-summary"></div>
           <div id="sim-compare" class="mt"></div>
           <div class="card mt">
-            <div class="card-head"><h3>Alternative Suppliers</h3></div>
+            <div class="card-head"><h3 data-i18n="alternative_suppliers">Alternative Suppliers</h3></div>
             <div class="table-wrap" id="sim-alts"></div>
           </div>
           <div class="card mt">
-            <div class="card-head"><h3>Optimized Recovery Plan Items</h3></div>
+            <div class="card-head"><h3 data-i18n="optimized_plan_items">Optimized Recovery Plan Items</h3></div>
             <div class="table-wrap" id="sim-plan-items"></div>
           </div>
         </div>
@@ -273,22 +314,43 @@
       <!-- ===== Supplier Comparison ===== -->
       <section id="view-alternatives" class="view">
         <div class="card">
-          <div class="card-head"><h3>Alternative Supplier Comparison</h3></div>
-          <div class="form-row">
-            <div class="field"><label>Product</label><select id="alt-product"></select></div>
-            <div class="field"><label>Quantity</label><input id="alt-qty" type="number" value="200" /></div>
-            <div class="field"><label>Exclude supplier ID (optional)</label>
-              <input id="alt-exclude" type="number" placeholder="original supplier" /></div>
+          <div class="card-head">
+            <h3 data-i18n="supplier_comparison">Alternative Supplier Comparison</h3>
+            <button class="btn btn-ghost btn-sm" onclick="reloadProducts()" data-i18n="reload_products">↺ Reload products</button>
           </div>
-          <button id="alt-compare" class="btn mt">Compare Suppliers</button>
+          <div class="form-row">
+            <div class="field">
+              <label data-i18n="product">Product</label>
+              <select id="alt-product"><option value="">Loading…</option></select>
+            </div>
+            <div class="field">
+              <label data-i18n="quantity">Quantity</label>
+              <input id="alt-qty" type="number" value="200" />
+            </div>
+            <div class="field">
+              <label data-i18n="exclude_supplier">Exclude supplier ID (optional)</label>
+              <input id="alt-exclude" type="number" placeholder="original supplier" />
+            </div>
+          </div>
+          <button id="alt-compare" class="btn mt" data-i18n="compare_suppliers">Compare Suppliers</button>
         </div>
         <div class="card mt">
-          <div class="card-head"><h3>Ranked Alternatives</h3></div>
+          <div class="card-head"><h3 data-i18n="ranked_alternatives">Ranked Alternatives</h3></div>
           <div class="table-wrap">
             <table id="alt-table">
-              <thead><tr><th>Supplier</th><th>Country</th><th>Rating</th><th>On-time</th>
-              <th>Lead</th><th>Unit Cost</th><th>Transport</th><th>Total</th>
-              <th>Delivery</th><th>Δ Delay</th><th>Score</th></tr></thead>
+              <thead><tr>
+                <th data-i18n="col_supplier">Supplier</th>
+                <th data-i18n="col_country">Country</th>
+                <th data-i18n="col_rating">Rating</th>
+                <th data-i18n="col_ontime">On-time</th>
+                <th data-i18n="col_lead">Lead</th>
+                <th data-i18n="col_unit_cost">Unit Cost</th>
+                <th data-i18n="col_transport">Transport</th>
+                <th data-i18n="col_total">Total</th>
+                <th data-i18n="col_delivery">Delivery</th>
+                <th data-i18n="col_delta_delay">Δ Delay</th>
+                <th data-i18n="col_score">Score</th>
+              </tr></thead>
               <tbody></tbody>
             </table>
           </div>
@@ -300,14 +362,23 @@
       <section id="view-recovery" class="view">
         <div class="card">
           <div class="card-head">
-            <h3>Recovery Plans</h3>
-            <span class="muted">Generated by the agent workflow or simulation</span>
+            <h3 data-i18n="recovery_plans">Recovery Plans</h3>
+            <span class="muted" data-i18n="generated_by_workflow">Generated by the agent workflow or simulation</span>
           </div>
           <div class="table-wrap">
             <table id="plan-table">
-              <thead><tr><th>ID</th><th>Disruption</th><th>Type</th><th>Total Cost</th>
-              <th>Transport</th><th>Avg Delay</th><th>Suppliers</th><th>Status</th>
-              <th>Created</th><th>Actions</th></tr></thead>
+              <thead><tr>
+                <th data-i18n="col_id">ID</th>
+                <th data-i18n="col_disruption">Disruption</th>
+                <th data-i18n="col_type">Type</th>
+                <th data-i18n="col_total_cost">Total Cost</th>
+                <th data-i18n="col_transport">Transport</th>
+                <th data-i18n="col_avg_delay">Avg Delay</th>
+                <th data-i18n="col_suppliers">Suppliers</th>
+                <th data-i18n="col_status">Status</th>
+                <th data-i18n="col_created">Created</th>
+                <th data-i18n="col_actions">Actions</th>
+              </tr></thead>
               <tbody></tbody>
             </table>
           </div>
@@ -315,43 +386,24 @@
         <div id="plan-detail" class="mt hidden"></div>
       </section>
 
-      <!-- ===== Human Approval ===== -->
-      <section id="view-approvals" class="view">
-        <div class="grid two-col">
-          <div class="card">
-            <div class="card-head"><h3>Pending Approvals</h3><span id="approval-count" class="muted"></span></div>
-            <div class="table-wrap">
-              <table id="pending-table">
-                <thead><tr><th>ID</th><th>Plan</th><th>Requester</th><th>Cost</th>
-                <th>Delay</th><th>Requested</th><th>Status</th><th>Actions</th></tr></thead>
-                <tbody></tbody>
-              </table>
-            </div>
-          </div>
-          <div class="card">
-            <div class="card-head"><h3>Approval History</h3></div>
-            <div class="table-wrap scrolly">
-              <table id="approval-history">
-                <thead><tr><th>ID</th><th>Plan</th><th>Cost</th><th>Status</th>
-                <th>By</th><th>Decided</th><th>Note</th></tr></thead>
-                <tbody></tbody>
-              </table>
-            </div>
-          </div>
-        </div>
-      </section>
-
       <!-- ===== Decision Tracking ===== -->
       <section id="view-tracking" class="view">
         <div class="card">
           <div class="card-head">
-            <h3>Decision History &amp; Tracking</h3>
+            <h3 data-i18n="decision_history">Decision History &amp; Tracking</h3>
             <span id="track-count" class="muted"></span>
           </div>
           <div class="table-wrap scrolly">
             <table id="track-table">
-              <thead><tr><th>ID</th><th>Entity</th><th>Entity ID</th>
-              <th>Action</th><th>Actor</th><th>Details</th><th>Time</th></tr></thead>
+              <thead><tr>
+                <th data-i18n="col_id">ID</th>
+                <th data-i18n="col_entity">Entity</th>
+                <th data-i18n="col_entity_id">Entity ID</th>
+                <th data-i18n="col_action">Action</th>
+                <th data-i18n="col_actor">Actor</th>
+                <th data-i18n="col_details">Details</th>
+                <th data-i18n="col_time">Time</th>
+              </tr></thead>
               <tbody></tbody>
             </table>
           </div>
