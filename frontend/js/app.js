@@ -49,29 +49,36 @@ const ROUTES = [
   { id: 'simulation',   label: 'What-if Simulation',      icon: '🧪', group: 'Intelligence' },
   { id: 'alternatives', label: 'Supplier Comparison',     icon: '⚖️', group: 'Intelligence' },
   { id: 'recovery',     label: 'Recovery Plans',          icon: '🛠️', group: 'Recovery' },
-  { id: 'approvals',    label: 'Human Approval',          icon: '✅', group: 'Recovery' },
   { id: 'tracking',     label: 'Decision Tracking',       icon: '📜', group: 'Recovery' },
 ];
 
 function buildNav() {
   const nav = $('#nav');
   nav.innerHTML = '';
+  const groups = {};
+  ROUTES.forEach(r => { (groups[r.group] = groups[r.group] || []).push(r); });
   let lastGroup = '';
   ROUTES.forEach(r => {
     if (r.group !== lastGroup) {
+      const groupKey = {
+        'Overview': 'nav_overview',
+        'Master Data': 'nav_master_data',
+        'Intelligence': 'nav_intelligence',
+        'Recovery': 'nav_recovery',
+      }[r.group] || r.group;
       const sec = document.createElement('div');
       sec.className = 'nav-section';
-      sec.textContent = r.group;
+      sec.dataset.group = groupKey;
+      sec.textContent = t(groupKey);
       nav.appendChild(sec);
       lastGroup = r.group;
     }
     const item = document.createElement('div');
     item.className = 'nav-item' + (r.id === currentRoute ? ' active' : '');
     item.dataset.route = r.id;
-    item.innerHTML = `<span class="ico">${r.icon}</span><span>${r.label}</span>`;
+    item.innerHTML = `<span class="ico">${r.icon}</span><span>${t('nav_' + r.id)}</span>`;
     item.onclick = () => {
       navigate(r.id);
-      // close sidebar on mobile after clicking a link
       if (window.innerWidth <= 760) {
         $('#sidebar').classList.remove('open');
       }
@@ -81,12 +88,18 @@ function buildNav() {
 }
 
 let currentRoute = 'dashboard';
+// expose for applyStaticTranslations
+window.currentRoute = currentRoute;
+window.ROUTES = ROUTES;
+
 function navigate(route) {
   currentRoute = route;
+  window.currentRoute = route;
   $$('.view').forEach(v => v.classList.toggle('active', v.id === 'view-' + route));
   $$('.nav-item').forEach(n => n.classList.toggle('active', n.dataset.route === route));
   const meta = ROUTES.find(r => r.id === route);
-  $('#page-title').textContent = meta ? meta.label : route;
+  $('#page-title').textContent = meta ? t('nav_' + meta.id) : route;
+  applyStaticTranslations();
   loadView(route);
 }
 
@@ -102,7 +115,6 @@ async function loadView(route) {
       case 'simulation':   return loadSimulation();
       case 'alternatives': return loadAlternatives();
       case 'recovery':     return loadRecovery();
-      case 'approvals':    return loadApprovals();
       case 'tracking':     return loadTracking();
     }
   } catch (e) {
@@ -126,6 +138,39 @@ function showApp() {
     $('#user-role').textContent = u.role;
     $('#avatar').textContent = (u.username[0] || 'U').toUpperCase();
   }
+  // Render pipeline about text and sim about text (translated)
+  _renderStaticTextBlocks();
+}
+
+// Render translated text blocks that can't use data-i18n (they have mixed content)
+function _renderStaticTextBlocks() {
+  const pa = $('#pipeline-about');
+  if (pa) {
+    pa.innerHTML = [
+      ['👁️', 'Monitoring',          'pipeline_monitoring'],
+      ['🔍', 'Impact Analysis',     'pipeline_impact'],
+      ['📈', 'Forecasting',         'pipeline_forecasting'],
+      ['⚖️', 'Supplier Evaluation', 'pipeline_eval'],
+      ['🔧', 'Optimization',        'pipeline_opt'],
+      ['🔔', 'Approval Gate',       'pipeline_approval'],
+      ['📜', 'Tracking',            'pipeline_tracking'],
+    ].map(([ico, label, key]) =>
+      `<div>${ico} <b>${t('stage_' + {
+        'Monitoring':'monitoring', 'Impact Analysis':'impact', 'Forecasting':'forecasting',
+        'Supplier Evaluation':'supplier_eval', 'Optimization':'optimization',
+        'Approval Gate':'approval', 'Tracking':'tracking',
+      }[label])}</b> — ${t(key)}</div>`
+    ).join('');
+  }
+  const sa = $('#sim-about-text');
+  if (sa) {
+    sa.textContent = 'Runs a deterministic sandbox simulation: impact analysis, supplier scoring, and OR-Tools optimisation — without committing a full agent workflow run. Compare original vs optimised plan cost and delay side-by-side.';
+  }
+  const wfp = $('#wf-desc-para');
+  if (wfp) {
+    wfp.textContent = 'Triggers the complete 7-agent LangGraph pipeline: Monitoring → Impact Analysis → Forecasting → Supplier Evaluation → LP Optimisation → Human Approval Gate → Tracking.';
+  }
+  applyStaticTranslations();
 }
 
 async function doLogin(e) {
@@ -144,21 +189,21 @@ function doLogout() { clearToken(); showLogin(); }
 
 // ---------- Dashboard ----------
 async function loadDashboard() {
-  $('#dash-status').textContent = 'Loading…';
+  $('#dash-status').textContent = t('loading');
   try {
     const [summary, alerts, perf, forecast] = await Promise.all([
       API.summary(), API.riskAlerts(), API.supplierPerformance(), API.demandForecast(),
     ]);
     const kpis = [
-      { label: 'Total Suppliers',    value: fmtNum(summary.total_suppliers),          icon: '🏭', cls: 't-blue' },
-      { label: 'Total Products',     value: fmtNum(summary.total_products),            icon: '📦', cls: 't-purple' },
-      { label: 'Active POs',         value: fmtNum(summary.active_purchase_orders),    icon: '🧾', cls: 't-teal' },
-      { label: 'Delayed Shipments',  value: fmtNum(summary.delayed_shipments),         icon: '⚠️', cls: 't-red' },
-      { label: 'Low Inventory',      value: fmtNum(summary.low_inventory_count),       icon: '📉', cls: 't-amber' },
-      { label: 'Open Disruptions',   value: fmtNum(summary.open_disruptions),          icon: '🚨', cls: 't-red' },
-      { label: 'Pending Approvals',  value: fmtNum(summary.pending_approvals),         icon: '✅', cls: 't-amber' },
-      { label: 'Inventory Value',    value: fmtMoney(summary.total_inventory_value),   icon: '💰', cls: 't-green' },
-      { label: 'On-Time Rate',       value: pct(summary.on_time_delivery_rate),        icon: '🎯', cls: 't-green' },
+      { label: t('kpi_total_suppliers'),   value: fmtNum(summary.total_suppliers),          icon: '🏭', cls: 't-blue' },
+      { label: t('kpi_total_products'),    value: fmtNum(summary.total_products),            icon: '📦', cls: 't-purple' },
+      { label: t('kpi_active_pos'),        value: fmtNum(summary.active_purchase_orders),    icon: '🧾', cls: 't-teal' },
+      { label: t('kpi_delayed_shipments'), value: fmtNum(summary.delayed_shipments),         icon: '⚠️', cls: 't-red' },
+      { label: t('kpi_low_inventory'),     value: fmtNum(summary.low_inventory_count),       icon: '📉', cls: 't-amber' },
+      { label: t('kpi_open_disruptions'),  value: fmtNum(summary.open_disruptions),          icon: '🚨', cls: 't-red' },
+      { label: t('kpi_pending_approvals'), value: fmtNum(summary.pending_approvals),         icon: '✅', cls: 't-amber' },
+      { label: t('kpi_inventory_value'),   value: fmtMoney(summary.total_inventory_value),   icon: '💰', cls: 't-green' },
+      { label: t('kpi_ontime_rate'),       value: pct(summary.on_time_delivery_rate),        icon: '🎯', cls: 't-green' },
     ];
     $('#kpi-grid').innerHTML = kpis.map(k => `
       <div class="card kpi">
@@ -176,7 +221,7 @@ async function loadDashboard() {
               <div class="at">${esc(a.category)} · ${esc(a.description)}</div>
             </div>
           </div>`).join('')
-      : '<div class="empty">No active risk alerts 🎉</div>';
+      : `<div class="empty">${t('no_risk_alerts')}</div>`;
 
     // supplier on-time chart — top 5 suppliers by period
     const bySup = {};
@@ -200,7 +245,7 @@ async function loadDashboard() {
     const fPeriods = Object.keys(fcByPeriod).sort();
     if (fPeriods.length) {
       CHART.bar('chart-demand', fPeriods, [{
-        label: 'Predicted Demand (units)',
+        label: t('predicted_demand') + ' (units)',
         data: fPeriods.map(p => +fcByPeriod[p].toFixed(0)),
         color: '#8b5cf6',
       }]);
@@ -208,7 +253,7 @@ async function loadDashboard() {
 
     $('#dash-status').textContent = '';
   } catch (e) {
-    $('#dash-status').textContent = 'Error: ' + e.message;
+    $('#dash-status').textContent = t('err_load_error', {msg: e.message});
     toast(e.message, 'error');
   }
 }
@@ -224,8 +269,8 @@ async function loadSuppliers(search = '') {
       <td>${esc(s.region)}</td><td>${s.rating.toFixed(1)}★</td>
       <td>${pct(s.on_time_rate)}</td><td>${fmtNum(s.avg_lead_time_days, 0)}d</td>
       <td>${s.active ? badgeFor('active') : badgeFor('inactive')}</td>
-    </tr>`).join('') || '<tr><td colspan="8" class="empty">No suppliers</td></tr>';
-  $('#suppliers-count').textContent = `${rows.length} suppliers`;
+    </tr>`).join('') || `<tr><td colspan="8" class="empty">${t('no_suppliers')}</td></tr>`;
+  $('#suppliers-count').textContent = `${rows.length} ${t('suppliers').toLowerCase()}`;
 }
 
 // ---------- Inventory ----------
@@ -246,8 +291,8 @@ async function loadInventory() {
       <td>${fmtNum(i.reorder_point, 0)}</td>
       <td>${isLow ? badgeFor('low') : badgeFor('ok')}</td>
     </tr>`;
-  }).join('') || '<tr><td colspan="6" class="empty">No inventory</td></tr>';
-  $('#inv-count').textContent = `${inv.length} records · ${low.length} low`;
+  }).join('') || `<tr><td colspan="6" class="empty">${t('no_inventory')}</td></tr>`;
+  $('#inv-count').textContent = `${inv.length} ${t('records')} · ${low.length} ${t('kpi_low_inventory').toLowerCase()}`;
 }
 
 // ---------- Purchase Orders ----------
@@ -271,8 +316,8 @@ async function loadOrders(status = '') {
       <td>${fmtDate(p.actual_delivery)}</td>
       <td>${fmtMoney(p.total_cost)}</td><td>${fmtMoney(p.transport_cost)}</td>
       <td>${p.items ? p.items.length : 0}</td>
-    </tr>`).join('') || '<tr><td colspan="9" class="empty">No purchase orders</td></tr>';
-  $('#orders-count').textContent = `${pos.length} orders`;
+    </tr>`).join('') || `<tr><td colspan="9" class="empty">${t('no_purchase_orders')}</td></tr>`;
+  $('#orders-count').textContent = `${pos.length} ${t('purchase_orders').toLowerCase()}`;
 }
 
 // ---------- Forecasting ----------
@@ -297,10 +342,10 @@ async function loadForecasting() {
         <div class="alert high"><div class="ai">⚠️</div>
         <div>
           <div class="at-title">${esc(s.product_name)}</div>
-          <div class="at">Period ${s.period}: demand ${fmtNum(s.predicted_demand, 0)} vs on-hand ${fmtNum(s.on_hand, 0)}</div>
+          <div class="at">${t('period')} ${s.period}: ${t('demand')} ${fmtNum(s.predicted_demand, 0)} vs ${t('on_hand')} ${fmtNum(s.on_hand, 0)}</div>
         </div></div>`).join('')
-    : '<div class="empty">No shortage risks predicted 🎉</div>';
-  $('#forecast-count').textContent = `${forecast.length} forecast points · ${shortages.length} at risk`;
+    : `<div class="empty">${t('no_shortages')}</div>`;
+  $('#forecast-count').textContent = `${forecast.length} ${t('forecast_points')} · ${shortages.length} ${t('at_risk')}`;
 }
 
 // ============================================================
@@ -314,14 +359,14 @@ async function loadWorkflow() {
   if (_workflowSuppliers.length === 0) {
     try {
       _workflowSuppliers = await API.suppliers('?limit=200&active_only=true');
-      $('#wf-supplier').innerHTML = '<option value="">— none —</option>' +
+      $('#wf-supplier').innerHTML = `<option value="">${t('none')}</option>` +
         _workflowSuppliers.map(s => `<option value="${s.id}">${esc(s.name)} (${esc(s.code)})</option>`).join('');
     } catch (_) {}
   }
   if (_workflowProducts.length === 0) {
     try {
       _workflowProducts = await API.products('?limit=200');
-      $('#wf-product').innerHTML = '<option value="">— none —</option>' +
+      $('#wf-product').innerHTML = `<option value="">${t('none')}</option>` +
         _workflowProducts.map(p => `<option value="${p.id}">${esc(p.sku)} — ${esc(p.name)}</option>`).join('');
     } catch (_) {}
   }
@@ -330,7 +375,7 @@ async function loadWorkflow() {
 async function runWorkflow() {
   const btn = $('#wf-run');
   btn.disabled = true;
-  btn.textContent = '⏳ Running agents…';
+  btn.textContent = t('running_agents');
   $('#wf-output').classList.add('hidden');
   try {
     const payload = {
@@ -347,12 +392,12 @@ async function runWorkflow() {
     };
     const result = await API.runWorkflow(payload);
     renderWorkflowResult(result);
-    toast('Workflow completed ✅', 'success');
+    toast(t('workflow_complete'), 'success');
   } catch (e) {
-    toast('Workflow error: ' + e.message, 'error');
+    toast(t('workflow_error') + ': ' + e.message, 'error');
   } finally {
     btn.disabled = false;
-    btn.textContent = '▶ Run Workflow';
+    btn.textContent = t('run_full_workflow');
   }
 }
 
@@ -372,33 +417,30 @@ function renderWorkflowResult(r) {
       </div>
       <p class="muted" style="font-size:0.88rem;margin-bottom:14px;">${esc(r.summary)}</p>
       <div class="kpi-grid" style="grid-template-columns:repeat(auto-fit,minmax(170px,1fr));">
-        <div class="card kpi"><div class="label">Disruption ID</div><div class="value">#${r.disruption_id}</div></div>
-        <div class="card kpi"><div class="label">Affected Orders</div><div class="value">${fmtNum(imp.affected_order_count)}</div></div>
-        <div class="card kpi"><div class="label">Affected Products</div><div class="value">${fmtNum(imp.affected_product_count)}</div></div>
-        <div class="card kpi"><div class="label">Total Shortfall</div><div class="value">${fmtNum(imp.total_shortfall,0)}</div></div>
-        <div class="card kpi"><div class="label">At-Risk Value</div><div class="value">${fmtMoney(imp.at_risk_value)}</div></div>
+        <div class="card kpi"><div class="label">${t('disruption_id')}</div><div class="value">#${r.disruption_id}</div></div>
+        <div class="card kpi"><div class="label">${t('affected_orders')}</div><div class="value">${fmtNum(imp.affected_order_count)}</div></div>
+        <div class="card kpi"><div class="label">${t('affected_products')}</div><div class="value">${fmtNum(imp.affected_product_count)}</div></div>
+        <div class="card kpi"><div class="label">${t('total_shortfall')}</div><div class="value">${fmtNum(imp.total_shortfall,0)}</div></div>
+        <div class="card kpi"><div class="label">${t('at_risk_value')}</div><div class="value">${fmtMoney(imp.at_risk_value)}</div></div>
       </div>
     </div>
 
     <div class="compare-grid mt">
       <div class="card">
-        <div class="card-head"><h3>📊 Plan Comparison</h3></div>
-        <div class="stat-line">Original cost: <b>${fmtMoney(opt.original_total_cost)}</b></div>
-        <div class="stat-line">Optimized cost: <b>${fmtMoney(opt.optimized_total_cost)}</b></div>
-        <div class="stat-line">Cost savings: <b>${fmtMoney(opt.cost_savings)}</b></div>
-        <div class="stat-line">Delay savings: <b>${fmtNum(opt.delay_savings_days,1)} days</b></div>
-        <div class="stat-line">Solver: <b>${esc(opt.solver || '—')}</b></div>
+        <div class="card-head"><h3>📊 ${t('plan_comparison')}</h3></div>
+        <div class="stat-line">${t('original_total_cost')}: <b>${fmtMoney(opt.original_total_cost)}</b></div>
+        <div class="stat-line">${t('optimized_total_cost')}: <b>${fmtMoney(opt.optimized_total_cost)}</b></div>
+        <div class="stat-line">${t('cost_savings')}: <b>${fmtMoney(opt.cost_savings)}</b></div>
+        <div class="stat-line">${t('delay_savings_label')}: <b>${fmtNum(opt.delay_savings_days,1)} ${t('days')}</b></div>
+        <div class="stat-line">${t('solver')}: <b>${esc(opt.solver || '—')}</b></div>
       </div>
       <div class="card">
-        <div class="card-head"><h3>${appr.approval_required ? '🔔 Approval Required' : '✅ Auto-Approved'}</h3></div>
+        <div class="card-head"><h3>${appr.approval_required ? t('approval_required') : t('auto_approved')}</h3></div>
         ${appr.approval_required ? `
-          <div class="stat-line">Request ID: <b>#${appr.approval_request_id || '—'}</b></div>
-          <div class="stat-line">Reason: <b>${esc(appr.approval_reason)}</b></div>
-          <div class="stat-line" style="margin-top:10px;">
-            <button class="btn btn-sm" onclick="navigate('approvals')">Go to Approvals →</button>
-          </div>` : `
+          <div class="stat-line">${t('request_id')}: <b>#${appr.approval_request_id || '—'}</b></div>
+          <div class="stat-line">${t('reason')}: <b>${esc(appr.approval_reason)}</b></div>` : `
           <div class="stat-line">Status: <b>${esc(appr.approval_status)}</b></div>
-          <p class="muted" style="font-size:0.85rem;margin-top:8px;">Plan cost and delay are within auto-approval thresholds.</p>`}
+          <p class="muted" style="font-size:0.85rem;margin-top:8px;">${t('below_thresholds')}</p>`}
       </div>
     </div>
 
@@ -408,17 +450,17 @@ function renderWorkflowResult(r) {
 
   // agent pipeline timeline
   const stages = [
-    { label: 'Monitoring',          icon: '👁️', data: `Delays: ${(r.monitoring.delays||[]).length} · At-risk suppliers: ${(r.monitoring.at_risk_suppliers||[]).length}` },
-    { label: 'Impact Analysis',     icon: '🔍', data: `Orders: ${imp.affected_order_count} · Products: ${imp.affected_product_count} · Shortfall: ${fmtNum(imp.total_shortfall,0)}` },
-    { label: 'Forecasting',         icon: '📈', data: `Forecasts: ${(r.forecasting.demand_forecast||[]).length} · Shortages: ${(r.forecasting.shortage_predictions||[]).length}` },
-    { label: 'Supplier Evaluation', icon: '⚖️', data: `Alternatives found: ${(r.supplier_evaluation.alternatives||[]).length}` },
-    { label: 'Optimization',        icon: '🔧', data: `Savings: ${fmtMoney(opt.cost_savings)} · Solver: ${esc(opt.solver||'—')}` },
-    { label: 'Approval Gate',       icon: '🔔', data: appr.approval_required ? `Pending (#${appr.approval_request_id})` : 'Auto-approved' },
-    { label: 'Tracking',            icon: '📜', data: `Records: ${(r.tracking.decision_records||[]).length} · Status: ${esc(r.tracking.recovery_status||'—')}` },
+    { label: t('stage_monitoring'),     icon: '👁️', data: t('stage_monitoring_data', {delays:(r.monitoring.delays||[]).length, risk:(r.monitoring.at_risk_suppliers||[]).length}) },
+    { label: t('stage_impact'),         icon: '🔍', data: t('stage_impact_data', {orders:imp.affected_order_count, products:imp.affected_product_count, shortfall:fmtNum(imp.total_shortfall,0)}) },
+    { label: t('stage_forecasting'),    icon: '📈', data: t('stage_forecasting_data', {count:(r.forecasting.demand_forecast||[]).length, shortages:(r.forecasting.shortage_predictions||[]).length}) },
+    { label: t('stage_supplier_eval'),  icon: '⚖️', data: t('stage_eval_data', {count:(r.supplier_evaluation.alternatives||[]).length}) },
+    { label: t('stage_optimization'),   icon: '🔧', data: t('stage_opt_data', {savings:fmtMoney(opt.cost_savings), solver:esc(opt.solver||'—')}) },
+    { label: t('stage_approval'),       icon: '🔔', data: appr.approval_required ? t('pending_hash', {id:appr.approval_request_id}) : t('auto_approved') },
+    { label: t('stage_tracking'),       icon: '📜', data: t('stage_tracking_data', {records:(r.tracking.decision_records||[]).length, status:esc(r.tracking.recovery_status||'—')}) },
   ];
   $('#wf-agent-timeline').innerHTML = `
     <div class="card">
-      <div class="card-head"><h3>🔗 Agent Pipeline</h3></div>
+      <div class="card-head"><h3>🔗 ${t('agent_pipeline')}</h3></div>
       <div style="display:flex;flex-direction:column;gap:0;">
         ${stages.map((s, i) => `
           <div style="display:flex;align-items:flex-start;gap:14px;padding:10px 0;${i < stages.length-1 ? 'border-bottom:1px solid var(--border);' : ''}">
@@ -437,13 +479,13 @@ function renderWorkflowResult(r) {
     $('#wf-plan-section').innerHTML = `
       <div class="card">
         <div class="card-head">
-          <h3>🛠️ Optimized Recovery Plan #${plan.id}</h3>
+          <h3>🛠️ ${t('recovery_plan_id')}${plan.id}</h3>
           <span>${badgeFor(plan.status)}</span>
         </div>
         <p class="muted" style="font-size:0.85rem;margin-bottom:12px;">${esc(plan.summary)}</p>
         <div class="table-wrap">
-          <table><thead><tr><th>Product</th><th>Supplier</th><th>Qty</th>
-          <th>Unit Cost</th><th>Transport</th><th>Delivery</th><th>Delay</th><th>Line Total</th></tr></thead>
+          <table><thead><tr><th>${t('col_product')}</th><th>${t('col_supplier')}</th><th>${t('col_qty')}</th>
+          <th>${t('col_unit_cost')}</th><th>${t('col_transport')}</th><th>${t('col_delivery')}</th><th>${t('col_delay')}</th><th>${t('col_line_total')}</th></tr></thead>
           <tbody>${plan.items.map(it => `
             <tr>
               <td>${it.product_id}</td><td>${it.supplier_id}</td>
@@ -459,10 +501,10 @@ function renderWorkflowResult(r) {
   if (alts.length) {
     $('#wf-alternatives-section').innerHTML = `
       <div class="card">
-        <div class="card-head"><h3>⚖️ Top Alternative Suppliers</h3><span class="muted">${alts.length} shown</span></div>
+        <div class="card-head"><h3>⚖️ ${t('alternative_suppliers')}</h3><span class="muted">${alts.length} shown</span></div>
         <div class="table-wrap">
-          <table><thead><tr><th>Supplier</th><th>Country</th><th>Rating</th><th>On-time</th>
-          <th>Lead</th><th>Unit Cost</th><th>Total Cost</th><th>Delivery</th><th>Score</th></tr></thead>
+          <table><thead><tr><th>${t('col_supplier')}</th><th>${t('col_country')}</th><th>${t('col_rating')}</th><th>${t('col_ontime')}</th>
+          <th>${t('col_lead')}</th><th>${t('col_unit_cost')}</th><th>${t('col_total_cost')}</th><th>${t('col_delivery')}</th><th>${t('col_score')}</th></tr></thead>
           <tbody>${alts.map(a => `
             <tr>
               <td>${esc(a.supplier_name)}</td><td>${esc(a.country)}</td>
@@ -483,7 +525,7 @@ function loadSimulation() {
 }
 
 async function runSimulation() {
-  const btn = $('#sim-run'); btn.disabled = true; btn.textContent = '⏳ Simulating…';
+  const btn2 = $('#sim-run'); btn2.disabled = true; btn2.textContent = t('simulating');
   try {
     const payload = {
       type:                 $('#sim-type').value,
@@ -495,58 +537,91 @@ async function runSimulation() {
     };
     const result = await API.whatIf(payload);
     renderSimulationResult(result);
-    toast('Simulation complete', 'success');
+    toast(t('simulation_complete'), 'success');
   } catch (e) { toast(e.message, 'error'); }
-  finally { btn.disabled = false; btn.textContent = 'Run Simulation'; }
+  finally { btn2.disabled = false; btn2.textContent = t('run_simulation'); }
 }
 
 function renderSimulationResult(r) {
   $('#sim-output').classList.remove('hidden');
+  const origCost = r.original_plan_cost || 0;
+  const optCost  = r.optimized_plan_cost || 0;
+  const origDelay = r.original_plan_delay_days || 0;
+  const optDelay  = r.optimized_plan_delay_days || 0;
+  const alternatives = r.alternatives || [];
+  const recoveryItems = (r.recovery_plan && r.recovery_plan.items) ? r.recovery_plan.items : [];
+
   $('#sim-summary').innerHTML = `
     <div class="kpi-grid">
-      <div class="card kpi"><div class="label">Affected Orders</div><div class="value">${fmtNum(r.affected_orders)}</div></div>
-      <div class="card kpi"><div class="label">Affected Products</div><div class="value">${fmtNum(r.affected_products)}</div></div>
-      <div class="card kpi"><div class="label">Inventory Gap</div><div class="value">${fmtNum(r.inventory_gap,0)}</div></div>
-      <div class="card kpi"><div class="label">Original Cost</div><div class="value">${fmtMoney(r.original_plan_cost)}</div></div>
-      <div class="card kpi"><div class="label">Optimized Cost</div><div class="value">${fmtMoney(r.optimized_plan_cost)}</div></div>
-      <div class="card kpi"><div class="label">Cost Savings</div><div class="value">${fmtMoney(r.original_plan_cost - r.optimized_plan_cost)}</div></div>
+      <div class="card kpi"><div class="label">${t('affected_orders')}</div><div class="value">${fmtNum(r.affected_orders)}</div></div>
+      <div class="card kpi"><div class="label">${t('affected_products')}</div><div class="value">${fmtNum(r.affected_products)}</div></div>
+      <div class="card kpi"><div class="label">${t('inventory_gap')}</div><div class="value">${fmtNum(r.inventory_gap,0)}</div></div>
+      <div class="card kpi"><div class="label">${t('original_cost')}</div><div class="value">${fmtMoney(origCost)}</div></div>
+      <div class="card kpi"><div class="label">${t('optimized_cost')}</div><div class="value">${fmtMoney(optCost)}</div></div>
+      <div class="card kpi"><div class="label">${t('cost_savings')}</div><div class="value">${fmtMoney(origCost - optCost)}</div></div>
     </div>`;
   $('#sim-compare').innerHTML = `
     <div class="compare-grid">
-      <div class="card"><div class="card-head"><h3>Original Plan</h3></div>
-        <div class="stat-line">Total cost: <b>${fmtMoney(r.original_plan_cost)}</b></div>
-        <div class="stat-line">Avg delay: <b>${fmtNum(r.original_plan_delay_days,1)} days</b></div></div>
-      <div class="card"><div class="card-head"><h3>Optimized Plan</h3></div>
-        <div class="stat-line">Total cost: <b>${fmtMoney(r.optimized_plan_cost)}</b></div>
-        <div class="stat-line">Avg delay: <b>${fmtNum(r.optimized_plan_delay_days,1)} days</b></div></div>
+      <div class="card"><div class="card-head"><h3>${t('original_plan')}</h3></div>
+        <div class="stat-line">${t('total_cost')}: <b>${fmtMoney(origCost)}</b></div>
+        <div class="stat-line">${t('avg_delay')}: <b>${fmtNum(origDelay,1)} ${t('days')}</b></div></div>
+      <div class="card"><div class="card-head"><h3>${t('optimized_plan')}</h3></div>
+        <div class="stat-line">${t('total_cost')}: <b>${fmtMoney(optCost)}</b></div>
+        <div class="stat-line">${t('avg_delay')}: <b>${fmtNum(optDelay,1)} ${t('days')}</b></div></div>
     </div>`;
   $('#sim-alts').innerHTML = `
-    <table><thead><tr><th>Supplier</th><th>Country</th><th>Rating</th><th>On-time</th>
-    <th>Lead</th><th>Unit Cost</th><th>Transport</th><th>Total</th><th>Delivery</th><th>Score</th></tr></thead>
-    <tbody>${r.alternatives.map(a => `
+    <table><thead><tr><th>${t('col_supplier')}</th><th>${t('col_country')}</th><th>${t('col_rating')}</th><th>${t('col_ontime')}</th>
+    <th>${t('col_lead')}</th><th>${t('col_unit_cost')}</th><th>${t('col_transport')}</th><th>${t('col_total')}</th><th>${t('col_delivery')}</th><th>${t('col_score')}</th></tr></thead>
+    <tbody>${alternatives.map(a => `
       <tr><td>${esc(a.supplier_name)}</td><td>${esc(a.country)}</td>
       <td>${(+a.rating).toFixed(1)}★</td><td>${pct(a.on_time_rate)}</td><td>${fmtNum(a.lead_time_days,0)}d</td>
       <td>${fmtMoney(a.unit_cost)}</td><td>${fmtMoney(a.transport_cost)}</td><td>${fmtMoney(a.total_cost)}</td>
       <td>${fmtNum(a.delivery_days,0)}d</td><td>${(+a.score).toFixed(3)}</td></tr>`).join('') ||
-      '<tr><td colspan="10" class="empty">No alternatives</td></tr>'}</tbody></table>`;
-  if (r.recovery_plan && r.recovery_plan.items) {
+      `<tr><td colspan="10" class="empty">${t('no_alternatives')}</td></tr>`}</tbody></table>`;
+  if (recoveryItems.length) {
     $('#sim-plan-items').innerHTML = `
-      <table><thead><tr><th>Product</th><th>Supplier</th><th>Qty</th>
-      <th>Unit Cost</th><th>Transport</th><th>Delay</th><th>Line Total</th></tr></thead>
-      <tbody>${r.recovery_plan.items.map(it => `
+      <table><thead><tr><th>${t('col_product')}</th><th>${t('col_supplier')}</th><th>${t('col_qty')}</th>
+      <th>${t('col_unit_cost')}</th><th>${t('col_transport')}</th><th>${t('col_delay')}</th><th>${t('col_line_total')}</th></tr></thead>
+      <tbody>${recoveryItems.map(it => `
         <tr><td>${it.product_id}</td><td>${it.supplier_id}</td>
         <td>${fmtNum(it.quantity,0)}</td><td>${fmtMoney(it.unit_cost)}</td>
         <td>${fmtMoney(it.transport_cost)}</td><td>${fmtNum(it.delay_days,1)}d</td>
         <td>${fmtMoney(it.line_total)}</td></tr>`).join('')}</tbody></table>`;
+  } else {
+    $('#sim-plan-items').innerHTML = `<div class="empty">${t('no_recovery_plans')}</div>`;
   }
 }
 
 // ---------- Alternatives comparison ----------
 async function loadAlternatives() {
-  if (!$$('#alt-product option').length) {
+  await _loadProductSelect();
+}
+
+async function reloadProducts() {
+  // force reload by clearing the select first
+  $('#alt-product').innerHTML = '';
+  await _loadProductSelect();
+}
+
+async function _loadProductSelect() {
+  const sel = $('#alt-product');
+  // reload if empty OR if only placeholder options (no real value)
+  const opts = Array.from(sel.options);
+  const hasRealOptions = opts.some(o => o.value && !isNaN(+o.value) && +o.value > 0);
+  if (hasRealOptions) return; // already loaded with real data
+
+  sel.innerHTML = `<option value="">${t('loading_products')}</option>`;
+  try {
     const products = await API.products('?limit=200');
-    $('#alt-product').innerHTML = products.map(p =>
+    if (!products || !products.length) {
+      sel.innerHTML = `<option value="">${t('no_real_product')}</option>`;
+      return;
+    }
+    sel.innerHTML = products.map(p =>
       `<option value="${p.id}">${esc(p.sku)} — ${esc(p.name)}</option>`).join('');
+  } catch (e) {
+    sel.innerHTML = `<option value="">${t('load_failed')}</option>`;
+    toast(t('err_failed_load_products', {msg: e.message}), 'error');
   }
 }
 
@@ -554,7 +629,7 @@ async function compareSuppliers() {
   const pid     = +$('#alt-product').value;
   const qty     = +$('#alt-qty').value || 200;
   const exclude = +$('#alt-exclude').value || null;
-  if (!pid) return toast('Select a product', 'error');
+  if (!pid) return toast(t('err_select_product'), 'error');
   try {
     const alts = await API.alternatives(pid, qty, exclude);
     $('#alt-table tbody').innerHTML = alts.map(a => `
@@ -565,7 +640,7 @@ async function compareSuppliers() {
         <td>${fmtMoney(a.transport_cost)}</td><td>${fmtMoney(a.total_cost)}</td>
         <td>${fmtNum(a.delivery_days,0)}d</td><td>${fmtNum(a.delay_vs_original,1)}d</td>
         <td><b>${(+a.score).toFixed(3)}</b></td>
-      </tr>`).join('') || '<tr><td colspan="11" class="empty">No alternatives</td></tr>';
+      </tr>`).join('') || `<tr><td colspan="11" class="empty">${t('no_alternatives')}</td></tr>`;
     if (alts.length) {
       CHART.bar('alt-chart', alts.map(a => a.supplier_name), [
         { label: 'Total Cost ($)',    data: alts.map(a => a.total_cost),    color: '#3b82f6' },
@@ -585,11 +660,11 @@ async function loadRecovery() {
       <td>${fmtNum(p.total_delay_days,1)}d</td><td>${p.supplier_count}</td>
       <td>${badgeFor(p.status)}</td><td>${fmtDate(p.created_at)}</td>
       <td>
-        <button class="btn btn-ghost btn-sm" onclick="viewPlan(${p.id})">View</button>
-        <button class="btn btn-sm" onclick="completePlan(${p.id})">Complete</button>
+        <button class="btn btn-ghost btn-sm" onclick="viewPlan(${p.id})">${t('btn_view')}</button>
+        <button class="btn btn-sm" onclick="completePlan(${p.id})">${t('btn_complete')}</button>
       </td>
     </tr>`).join('') ||
-    '<tr><td colspan="10" class="empty">No recovery plans yet. Run the agent workflow first.</td></tr>';
+    `<tr><td colspan="10" class="empty">${t('no_recovery_plans')}</td></tr>`;
   $('#plan-detail').classList.add('hidden');
 }
 
@@ -598,31 +673,31 @@ async function viewPlan(id) {
     const [plan, cmp] = await Promise.all([API.getPlan(id), API.comparePlan(id)]);
     let html = `
       <div class="card">
-        <div class="card-head"><h3>Recovery Plan #${plan.id}</h3>${badgeFor(plan.status)}</div>
+        <div class="card-head"><h3>${t('recovery_plan_id')}${plan.id}</h3>${badgeFor(plan.status)}</div>
         <p class="muted">${esc(plan.summary)}</p>`;
     if (cmp && cmp.original) {
       html += `
         <div class="compare-grid mt">
-          <div class="card"><div class="card-head"><h3>Original Plan</h3></div>
-            <div class="stat-line">Cost: <b>${fmtMoney(cmp.original.total_cost)}</b></div>
-            <div class="stat-line">Delay: <b>${fmtNum(cmp.original.delay_days,1)}d</b></div>
-            <div class="stat-line">Suppliers: <b>${cmp.original.suppliers}</b></div></div>
-          <div class="card"><div class="card-head"><h3>Optimized Plan</h3></div>
-            <div class="stat-line">Cost: <b>${fmtMoney(cmp.optimized.total_cost)}</b></div>
-            <div class="stat-line">Delay: <b>${fmtNum(cmp.optimized.delay_days,1)}d</b></div>
-            <div class="stat-line">Suppliers: <b>${cmp.optimized.suppliers}</b></div></div>
+          <div class="card"><div class="card-head"><h3>${t('original_plan')}</h3></div>
+            <div class="stat-line">${t('col_cost')}: <b>${fmtMoney(cmp.original.total_cost)}</b></div>
+            <div class="stat-line">${t('col_delay')}: <b>${fmtNum(cmp.original.delay_days,1)}d</b></div>
+            <div class="stat-line">${t('col_suppliers')}: <b>${cmp.original.suppliers}</b></div></div>
+          <div class="card"><div class="card-head"><h3>${t('optimized_plan')}</h3></div>
+            <div class="stat-line">${t('col_cost')}: <b>${fmtMoney(cmp.optimized.total_cost)}</b></div>
+            <div class="stat-line">${t('col_delay')}: <b>${fmtNum(cmp.optimized.delay_days,1)}d</b></div>
+            <div class="stat-line">${t('col_suppliers')}: <b>${cmp.optimized.suppliers}</b></div></div>
         </div>
         <div class="card mt">
-          <div class="stat-line">Cost savings: <b>${fmtMoney(cmp.cost_savings)}</b></div>
-          <div class="stat-line">Delay savings: <b>${fmtNum(cmp.delay_savings_days,1)} days</b></div>
+          <div class="stat-line">${t('cost_savings_label')}: <b>${fmtMoney(cmp.cost_savings)}</b></div>
+          <div class="stat-line">${t('delay_savings_label')}: <b>${fmtNum(cmp.delay_savings_days,1)} ${t('days')}</b></div>
         </div>`;
     }
     html += `
         <div class="card mt">
-          <div class="card-head"><h3>Line Items (${plan.items.length})</h3></div>
+          <div class="card-head"><h3>${t('line_items')} (${plan.items.length})</h3></div>
           <div class="table-wrap">
-            <table><thead><tr><th>Product</th><th>Supplier</th><th>Qty</th>
-            <th>Unit Cost</th><th>Transport</th><th>Delivery</th><th>Delay</th><th>Line Total</th></tr></thead>
+            <table><thead><tr><th>${t('col_product')}</th><th>${t('col_supplier')}</th><th>${t('col_qty')}</th>
+            <th>${t('col_unit_cost')}</th><th>${t('col_transport')}</th><th>${t('col_delivery')}</th><th>${t('col_delay')}</th><th>${t('col_line_total')}</th></tr></thead>
             <tbody>${plan.items.map(it => `
               <tr>
                 <td>${it.product_id}</td><td>${it.supplier_id}</td>
@@ -639,8 +714,8 @@ async function viewPlan(id) {
 }
 
 async function completePlan(id) {
-  if (!confirm('Mark recovery plan ' + id + ' as completed?')) return;
-  try { await API.completePlan(id); toast('Recovery completed ✅', 'success'); loadRecovery(); }
+  if (!confirm(t('confirm_complete', {id}))) return;
+  try { await API.completePlan(id); toast(t('recovery_completed'), 'success'); loadRecovery(); }
   catch (e) { toast(e.message, 'error'); }
 }
 
@@ -656,11 +731,11 @@ async function loadApprovals() {
       <td>${fmtMoney(a.total_cost)}</td><td>${fmtNum(a.total_delay_days,1)}d</td>
       <td>${fmtDateTime(a.requested_at)}</td><td>${badgeFor(a.status)}</td>
       <td>${canDecide ? `
-        <button class="btn btn-green btn-sm" onclick="decide(${a.id},'approved')">Approve</button>
-        <button class="btn btn-red btn-sm" onclick="decide(${a.id},'rejected')">Reject</button>` :
-        '<span class="muted" style="font-size:0.8rem;">Requires approver role</span>'}</td>
-    </tr>`).join('') || '<tr><td colspan="8" class="empty">No pending approvals 🎉</td></tr>';
-  $('#approval-count').textContent = `${pending.length} pending`;
+        <button class="btn btn-green btn-sm" onclick="decide(${a.id},'approved')">${t('btn_approve')}</button>
+        <button class="btn btn-red btn-sm" onclick="decide(${a.id},'rejected')">${t('btn_reject')}</button>` :
+        `<span class="muted" style="font-size:0.8rem;">${t('requires_approver_role')}</span>`}</td>
+    </tr>`).join('') || `<tr><td colspan="8" class="empty">${t('no_pending_approvals')}</td></tr>`;
+  $('#approval-count').textContent = `${pending.length} ${t('pending_approvals').toLowerCase()}`;
 
   const all = await API.approvals('?limit=50');
   $('#approval-history tbody').innerHTML = all.map(a => `
@@ -676,10 +751,10 @@ async function decide(id, status) {
   if (!user || (user.role !== 'approver' && user.role !== 'admin')) {
     return toast('You need approver or admin role to decide', 'error');
   }
-  const note = prompt(`Note for ${status} of approval #${id}:`, '') ?? '';
+  const note = prompt(t('approval_note_prompt', {id, status: status}), '') ?? '';
   try {
     await API.decideApproval(id, { status, decided_by: user.username, decision_note: note });
-    toast(`Approval #${id} ${status} ✅`, 'success');
+    toast(t('approval_decided', {id, status: status === 'approved' ? t('approval_approved') : t('approval_rejected')}), 'success');
     loadApprovals();
   } catch (e) { toast(e.message, 'error'); }
 }
@@ -694,28 +769,46 @@ async function loadTracking() {
       <td style="max-width:260px;overflow:hidden;text-overflow:ellipsis;white-space:nowrap;"
           title="${esc(d.details)}">${esc(d.details)}</td>
       <td>${fmtDateTime(d.timestamp)}</td>
-    </tr>`).join('') || '<tr><td colspan="7" class="empty">No decisions recorded yet</td></tr>';
-  $('#track-count').textContent = `${decisions.length} records`;
+    </tr>`).join('') || `<tr><td colspan="7" class="empty">${t('no_decisions')}</td></tr>`;
+  $('#track-count').textContent = `${decisions.length} ${t('records')}`;
 }
 
 // ---------- Init ----------
 function init() {
+  // Restore saved language before anything renders
+  const savedLang = localStorage.getItem('sc_lang') || 'en';
+  const langSel = $('#lang-select');
+  if (langSel) langSel.value = savedLang;
+
   $('#login-form').addEventListener('submit', doLogin);
   $('#logout-btn').addEventListener('click', doLogout);
   $('#nav-toggle')?.addEventListener('click', () => {
     const sidebar = $('#sidebar');
     if (window.innerWidth <= 760) {
-      // mobile: slide in/out with transform
       sidebar.classList.toggle('open');
-      // remove collapsed so mobile open/close works independently
       if (sidebar.classList.contains('open')) {
         sidebar.classList.remove('collapsed');
       }
     } else {
-      // desktop: collapse/expand width
       sidebar.classList.toggle('collapsed');
     }
   });
+
+  // Language selector
+  if (langSel) {
+    langSel.addEventListener('change', e => {
+      setLang(e.target.value);
+      // If we're in the app, rebuild nav and re-render current page
+      if (!$('#app-shell').classList.contains('hidden')) {
+        buildNav();
+        _renderStaticTextBlocks();
+        loadView(currentRoute);
+      }
+    });
+  }
+
+  // Apply translations to login page immediately
+  applyStaticTranslations();
 
   // search + filter bindings
   $('#sup-search')?.addEventListener('input', e => loadSuppliers(e.target.value));
