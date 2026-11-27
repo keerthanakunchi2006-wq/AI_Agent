@@ -15,8 +15,8 @@ jobs:
           python-version: "3.11"
 
       - name: Install dependencies
-        run: pip install -r AI_Agent/backend/requirements.txt
+        run: pip install -r backend/requirements.txt
 
       - name: Run tests
-        working-directory: AI_Agent/backend
+        working-directory: backend
         run: pytest tests/
